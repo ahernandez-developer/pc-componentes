@@ -6,10 +6,15 @@ var CaseSensitivePathsPlugin = require("case-sensitive-paths-webpack-plugin");
 
 var webpackConfig = {
     plugins: [
-     
         new CaseSensitivePathsPlugin()
         // other plugins ...
-    ]
+    ],
+    resolve: {
+        alias: {
+            vue$: "vue/dist/vue.runtime.esm.js",
+            "@": path.resolve("resources/js")
+        }
+    }
     // other webpack config ...
 };
 
@@ -30,9 +35,12 @@ mix.js("resources/js/app.js", "public/js").sass(
     "public/css"
 );
 
-mix.extend('vuetify', new class {
-    webpackConfig (config) {
-        config.plugins.push(new VuetifyLoaderPlugin())
-    }
-})
-mix.vuetify()
+mix.extend(
+    "vuetify",
+    new (class {
+        webpackConfig(config) {
+            config.plugins.push(new VuetifyLoaderPlugin());
+        }
+    })()
+);
+mix.vuetify();

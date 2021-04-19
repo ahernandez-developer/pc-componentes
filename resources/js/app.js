@@ -1,19 +1,30 @@
-import { App, plugin } from "@inertiajs/inertia-vue";
 import Vue from "vue";
-import { InertiaProgress } from "@inertiajs/progress";
+import VueMeta from "vue-meta";
+import PortalVue from "portal-vue";
+import { App, plugin } from "@inertiajs/inertia-vue";
+import { InertiaProgress } from "@inertiajs/progress/src";
+
 import Vuetify from "../plugins/vuetify";
-InertiaProgress.init();
+Vue.config.productionTip = false;
 Vue.use(plugin);
+Vue.use(PortalVue);
+Vue.use(VueMeta);
+
+InertiaProgress.init();
 
 const el = document.getElementById("app");
 
 new Vue({
-    vuetify:Vuetify,
+    vuetify: Vuetify,
+    metaInfo: {
+        titleTemplate: title => (title ? `${title} - PC componentes` : "PC Componentes")
+    },
     render: h =>
         h(App, {
             props: {
                 initialPage: JSON.parse(el.dataset.page),
-                resolveComponent: name => require(`./pages/${name}`).default
+                resolveComponent: name =>
+                    import(`@/Pages/${name}`).then(module => module.default)
             }
         })
 }).$mount(el);
