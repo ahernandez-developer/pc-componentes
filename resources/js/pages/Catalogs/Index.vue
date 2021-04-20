@@ -33,27 +33,27 @@ export default {
       options: [
         {
           icon: "mdi-truck",
-          size: "64px",
+          size: "100px",
           title: "Proveedores",
-          route: "/home/catalogs/suppliers",
+          route: "/admin/catalogs/suppliers",
         },
         {
           icon: "mdi-package",
-          size: "64px",
+          size: "100px",
           title: "Medidas",
-          route: "/home/catalogs/measures",
+          route: "/admin/catalogs/measures",
         },
         {
           icon: "mdi-harddisk",
-          size: "64px",
+          size: "100px",
           title: "Insumos",
-          route: "/home/catalogs/supplies",
+          route: "/admin/catalogs/supplies",
         },
         {
           icon: "mdi-desktop-tower-monitor",
-          size: "64px",
+          size: "100px",
           title: "Productos",
-          route: "/home/catalogs/products",
+          route: "/admin/catalogs/products",
         },       
       ],
     };

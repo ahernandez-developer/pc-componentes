@@ -8,7 +8,7 @@ class CatalogController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Catalog/Index');
+        return Inertia::render('Catalogs/Index');
     }
 
     public function about()
@@ -17,4 +17,5 @@ class CatalogController extends Controller
             'hello' => "hello world",
         ]);
     }
+
 }
