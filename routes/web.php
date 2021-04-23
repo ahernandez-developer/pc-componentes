@@ -24,4 +24,7 @@ Route::get('/admin', "AdminController@index");
 Route::get('/admin/inventory', "InventoryController@index");
 Route::get('/admin/catalogs', "CatalogController@index");
 Route::resource('/admin/catalogs/suppliers', "Catalogs\SuppliersController");
+Route::resource('/admin/catalogs/measures', "Catalogs\MeasuresController");
+Route::resource('/admin/catalogs/supplies', "Catalogs\SuppliesController");
+Route::resource('/admin/catalogs/products', "Catalogs\ProductsController");
 Route::get('/home', 'HomeController@index')->name('home');

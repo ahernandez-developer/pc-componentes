@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-container style="height: 92%" fill-height>
-      <app-bar/>
+      <app-bar />
       <v-row align="center" justify="start">
         <MenuOption
           v-for="(option, index) in options"
@@ -44,6 +44,12 @@ export default {
           route: "/admin/catalogs/measures",
         },
         {
+          icon: "mdi-bookshelf",
+          size: "100px",
+          title: "Categorías",
+          route: "/admin/menu",
+        },
+        {
           icon: "mdi-harddisk",
           size: "100px",
           title: "Insumos",
@@ -54,7 +60,7 @@ export default {
           size: "100px",
           title: "Productos",
           route: "/admin/catalogs/products",
-        },       
+        },
       ],
     };
   },
@@ -63,7 +69,7 @@ export default {
 
 
 <style >
-a:link{
+a:link {
   text-decoration: none;
 }
 </style>

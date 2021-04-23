@@ -45,12 +45,6 @@ export default {
           route: "/admin/inventory",
         },
         {
-          icon: "mdi-desktop-classic",
-          size: "100px",
-          title: "Categorias",
-          route: "/admin/menu",
-        },
-        {
           icon: "mdi-cash-register",
           size: "100px",
           title: "Caja",
