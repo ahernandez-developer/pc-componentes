@@ -47,7 +47,7 @@ export default {
           icon: "mdi-bookshelf",
           size: "100px",
           title: "Categorías",
-          route: "/admin/menu",
+          route: "/admin/catalogs/categories",
         },
         {
           icon: "mdi-harddisk",
@@ -67,8 +67,7 @@ export default {
 };
 </script>
 
-
-<style >
+<style>
 a:link {
   text-decoration: none;
 }

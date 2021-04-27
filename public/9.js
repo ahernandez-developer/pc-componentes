@@ -116,64 +116,73 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "Edit",
+  name: "CategoriesEdit",
   components: {
     AppBar: _components_AppBar__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  created: function created() {
-    this.supplierId = this.$route.params.id;
-    this.findSupplier(this.supplierId);
+  props: {
+    errors: Object,
+    category: Object
   },
   data: function data() {
     return {
-      supplierId: 0,
       status: false,
-      supplier: {},
-      nameRules: [function (v) {
+      titleRules: [function (v) {
         return !!v || "Ingrese el nombre";
       }, function (v) {
         return !v || v.length >= 3 || "El nombre debe contener almenos dos caracteres";
-      }],
-      responsableRules: [function (v) {
-        return !!v || "Es importante identificar un contacto";
-      }, function (v) {
-        return !v || v.length >= 3 || "El nombre debe contener almenos dos caracteres";
-      }],
-      phoneRules: [function (v) {
-        return !!v || "Ingrese un número de teléfono para contactar al proveedor";
-      }, function (v) {
-        return !v || v.length >= 3 || "Ingrese un número de teléfono valido";
       }]
     };
   },
   methods: {
     validate: function validate(event) {
       var valid = this.$refs.form.validate();
-      if (valid == true) this.updateSupplier();
+      if (valid == true) this.storeCategory();
     },
-    findSupplier: function findSupplier() {
-      var _this = this;
-
-      dispatch({
-        controller: "suppliers",
-        action: "find",
-        params: this.supplierId
-      }, function (response) {
-        _this.supplier = response;
-      });
-    },
-    updateSupplier: function updateSupplier() {
-      dispatch({
-        controller: "suppliers",
-        action: "update",
-        params: this.supplier
-      }, function (response) {
-        router.push({
-          name: "CatalogsSuppliers"
-        });
-      });
+    storeCategory: function storeCategory() {
+      this.$inertia.put(route("catalogs.categories.update", this.category), this.category);
     }
   }
 });
@@ -294,153 +303,294 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "v-form",
-    {
-      ref: "form",
-      attrs: { "lazy-validation": "" },
-      model: {
-        value: _vm.status,
-        callback: function($$v) {
-          _vm.status = $$v
-        },
-        expression: "status"
-      }
-    },
+    "v-app",
     [
       _c(
-        "div",
-        { staticClass: "px-10 py-4" },
+        "v-container",
+        { staticStyle: { height: "92%" }, attrs: { "fill-height": "" } },
         [
-          _c(
-            "v-row",
-            { attrs: { justify: "space-between" } },
-            [
-              _c("h1", { staticClass: "ma-3" }, [_vm._v("Editar proveedor")]),
-              _vm._v(" "),
-              _c(
-                "v-btn",
-                {
-                  staticClass: "ma-3 primary--text text-capitalize",
-                  attrs: {
-                    color: "accent",
-                    depressed: "",
-                    disabled: !_vm.status
-                  },
-                  on: { click: _vm.validate }
-                },
-                [
-                  _vm._v("\n        Confirmar\n        "),
-                  _c("v-icon", { attrs: { dark: "", right: "" } }, [
-                    _vm._v(" mdi-check ")
-                  ])
-                ],
-                1
-              )
-            ],
-            1
-          ),
+          _c("app-bar"),
           _vm._v(" "),
           _c(
             "v-row",
             [
               _c(
                 "v-col",
+                { attrs: { cols: "12", sm: "12" } },
                 [
                   _c(
                     "v-card",
-                    { staticClass: "pa-5", attrs: { light: "" } },
+                    {
+                      staticClass: "mt-7 pa-5",
+                      attrs: { outlined: "", light: "" }
+                    },
                     [
-                      _c(
-                        "v-row",
-                        { staticClass: "my-5" },
-                        [
-                          _c(
-                            "v-col",
-                            { attrs: { cols: "12", md: "6" } },
-                            [
-                              _c("v-text-field", {
-                                attrs: {
-                                  outlined: "",
-                                  label: "Nombre",
-                                  rules: _vm.nameRules
-                                },
-                                model: {
-                                  value: _vm.supplier.name,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.supplier, "name", $$v)
-                                  },
-                                  expression: "supplier.name"
-                                }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-col",
-                            { attrs: { cols: "12", md: "6" } },
-                            [
-                              _c("v-text-field", {
-                                attrs: { outlined: "", label: "Dirección" },
-                                model: {
-                                  value: _vm.supplier.address,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.supplier, "address", $$v)
-                                  },
-                                  expression: "supplier.address"
-                                }
-                              })
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      ),
+                      _c("v-card-title", [_vm._v(" Editar categoría ")]),
                       _vm._v(" "),
                       _c(
-                        "v-row",
-                        { staticClass: "my-5" },
+                        "v-form",
+                        {
+                          ref: "form",
+                          model: {
+                            value: _vm.status,
+                            callback: function($$v) {
+                              _vm.status = $$v
+                            },
+                            expression: "status"
+                          }
+                        },
                         [
                           _c(
-                            "v-col",
-                            { attrs: { cols: "12", md: "6" } },
+                            "v-row",
+                            { staticClass: "my-5" },
                             [
-                              _c("v-text-field", {
-                                attrs: {
-                                  outlined: "",
-                                  label: "Responsable",
-                                  rules: _vm.responsableRules
-                                },
-                                model: {
-                                  value: _vm.supplier.responsable,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.supplier, "responsable", $$v)
-                                  },
-                                  expression: "supplier.responsable"
-                                }
-                              })
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "12", md: "6" } },
+                                [
+                                  _vm.errors.title
+                                    ? _c("div", { staticClass: "red--text" }, [
+                                        _vm._v(_vm._s(_vm.errors.title))
+                                      ])
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _c("v-text-field", {
+                                    attrs: {
+                                      outlined: "",
+                                      label: "Nombre",
+                                      rules: _vm.titleRules
+                                    },
+                                    model: {
+                                      value: _vm.category.title,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.category, "title", $$v)
+                                      },
+                                      expression: "category.title"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "12", md: "6" } },
+                                [
+                                  _vm.errors.description
+                                    ? _c("div", { staticClass: "red--text" }, [
+                                        _vm._v(
+                                          "\n                  " +
+                                            _vm._s(_vm.errors.description) +
+                                            "\n                "
+                                        )
+                                      ])
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _c("v-text-field", {
+                                    attrs: {
+                                      outlined: "",
+                                      label: "Descripción"
+                                    },
+                                    model: {
+                                      value: _vm.category.description,
+                                      callback: function($$v) {
+                                        _vm.$set(
+                                          _vm.category,
+                                          "description",
+                                          $$v
+                                        )
+                                      },
+                                      expression: "category.description"
+                                    }
+                                  })
+                                ],
+                                1
+                              )
                             ],
                             1
                           ),
                           _vm._v(" "),
                           _c(
-                            "v-col",
-                            { attrs: { cols: "12", md: "6" } },
+                            "v-row",
+                            { staticClass: "my-5" },
                             [
-                              _c("v-text-field", {
-                                attrs: {
-                                  outlined: "",
-                                  label: "Teléfono",
-                                  rules: _vm.phoneRules
-                                },
-                                model: {
-                                  value: _vm.supplier.phone_number,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.supplier, "phone_number", $$v)
-                                  },
-                                  expression: "supplier.phone_number"
-                                }
-                              })
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "12", md: "6" } },
+                                [
+                                  _vm.errors.local_image_url
+                                    ? _c("div", { staticClass: "red--text" }, [
+                                        _vm._v(
+                                          "\n                  " +
+                                            _vm._s(_vm.errors.local_image_url) +
+                                            "\n                "
+                                        )
+                                      ])
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _c("v-text-field", {
+                                    attrs: {
+                                      outlined: "",
+                                      label: "Url imagen local"
+                                    },
+                                    model: {
+                                      value: _vm.category.local_image_url,
+                                      callback: function($$v) {
+                                        _vm.$set(
+                                          _vm.category,
+                                          "local_image_url",
+                                          $$v
+                                        )
+                                      },
+                                      expression: "category.local_image_url"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "12", md: "6" } },
+                                [
+                                  _vm.errors.web_image_url
+                                    ? _c("div", { staticClass: "red--text" }, [
+                                        _vm._v(
+                                          "\n                  " +
+                                            _vm._s(_vm.errors.web_image_url) +
+                                            "\n                "
+                                        )
+                                      ])
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _c("v-text-field", {
+                                    attrs: {
+                                      outlined: "",
+                                      label: "Url imagen web"
+                                    },
+                                    model: {
+                                      value: _vm.category.web_image_url,
+                                      callback: function($$v) {
+                                        _vm.$set(
+                                          _vm.category,
+                                          "web_image_url",
+                                          $$v
+                                        )
+                                      },
+                                      expression: "category.web_image_url"
+                                    }
+                                  })
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-row",
+                            { staticClass: "my-5" },
+                            [
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "12", md: "6" } },
+                                [
+                                  _vm.errors.firestore_reference
+                                    ? _c("div", { staticClass: "red--text" }, [
+                                        _vm._v(
+                                          "\n                  " +
+                                            _vm._s(
+                                              _vm.errors.firestore_reference
+                                            ) +
+                                            "\n                "
+                                        )
+                                      ])
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _c("v-text-field", {
+                                    attrs: {
+                                      outlined: "",
+                                      label: "Url imagen local"
+                                    },
+                                    model: {
+                                      value: _vm.category.firestore_reference,
+                                      callback: function($$v) {
+                                        _vm.$set(
+                                          _vm.category,
+                                          "firestore_reference",
+                                          $$v
+                                        )
+                                      },
+                                      expression: "category.firestore_reference"
+                                    }
+                                  })
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-card-text",
+                            [
+                              _c(
+                                "v-row",
+                                [
+                                  _c("v-spacer"),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      staticClass: "m-2",
+                                      attrs: {
+                                        color: "secondary",
+                                        href: _vm.$route(
+                                          "catalogs.categories.index"
+                                        ),
+                                        block: _vm.$vuetify.breakpoint.xs
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                  Regresar\n                  "
+                                      ),
+                                      _c(
+                                        "v-icon",
+                                        { attrs: { dark: "", right: "" } },
+                                        [_vm._v(" mdi-keyboard-return")]
+                                      )
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      staticClass: "m-2",
+                                      attrs: {
+                                        color: "primary",
+                                        depressed: "",
+                                        disabled: !_vm.status,
+                                        block: _vm.$vuetify.breakpoint.xs
+                                      },
+                                      on: { click: _vm.validate }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                  Actualizar\n                  "
+                                      ),
+                                      _c(
+                                        "v-icon",
+                                        { attrs: { dark: "", right: "" } },
+                                        [_vm._v(" mdi-check ")]
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              )
                             ],
                             1
                           )
@@ -459,7 +609,8 @@ var render = function() {
         ],
         1
       )
-    ]
+    ],
+    1
   )
 }
 var staticRenderFns = []
@@ -716,12 +867,13 @@ __webpack_require__.r(__webpack_exports__);
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../node_modules/vuetify-loader/lib/runtime/installComponents.js */ "./node_modules/vuetify-loader/lib/runtime/installComponents.js");
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/index.js");
-/* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/index.js");
-/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
-/* harmony import */ var vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VForm */ "./node_modules/vuetify/lib/components/VForm/index.js");
-/* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
-/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
+/* harmony import */ var vuetify_lib_components_VApp__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuetify/lib/components/VApp */ "./node_modules/vuetify/lib/components/VApp/index.js");
+/* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/index.js");
+/* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/index.js");
+/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
+/* harmony import */ var vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VForm */ "./node_modules/vuetify/lib/components/VForm/index.js");
+/* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
+/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
 
 
 
@@ -749,7 +901,12 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCard"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VCol"],VForm: vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_7__["VForm"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_8__["VIcon"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VRow"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_9__["VTextField"]})
+
+
+
+
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VApp: vuetify_lib_components_VApp__WEBPACK_IMPORTED_MODULE_4__["VApp"],VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCard"],VCardText: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCardText"],VCardTitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCardTitle"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VCol"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VContainer"],VForm: vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_8__["VForm"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_9__["VIcon"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VRow"],VSpacer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VSpacer"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_10__["VTextField"]})
 
 
 /* hot reload */

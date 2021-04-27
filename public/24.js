@@ -56,7 +56,7 @@ __webpack_require__.r(__webpack_exports__);
         icon: "mdi-bookshelf",
         size: "100px",
         title: "Categorías",
-        route: "/admin/menu"
+        route: "/admin/catalogs/categories"
       }, {
         icon: "mdi-harddisk",
         size: "100px",

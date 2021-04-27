@@ -1,135 +1,135 @@
 <template>
-    <v-form v-model="status" lazy-validation ref="form">
-      <div class="px-10 py-4">
-        <v-row justify="space-between">
-          <h1 class="ma-3">Editar proveedor</h1>
-          <v-btn
-            class="ma-3 primary--text text-capitalize"
-            color="accent"
-            depressed
-            @click="validate"
-            :disabled="!status"
-          >
-            Confirmar
-            <v-icon dark right> mdi-check </v-icon>
-          </v-btn>
-        </v-row>
-        <v-row>
-          <v-col>
-            <v-card light class="pa-5">
+  <v-app>
+    <v-container style="height: 92%" fill-height>
+      <app-bar />
+      <v-row>
+        <v-col cols="12" sm="12">
+          <v-card outlined light class="mt-7 pa-5">
+            <v-card-title> Editar categor&iacute;a </v-card-title>
+            <v-form v-model="status" ref="form">
               <v-row class="my-5">
                 <v-col cols="12" md="6">
+                  <div v-if="errors.title" class="red--text">{{ errors.title }}</div>
                   <v-text-field
                     outlined
                     label="Nombre"
-                    v-model="supplier.name"
-                    :rules="nameRules"
+                    v-model="category.title"
+                    :rules="titleRules"
                   />
                 </v-col>
                 <v-col cols="12" md="6">
+                  <div v-if="errors.description" class="red--text">
+                    {{ errors.description }}
+                  </div>
                   <v-text-field
                     outlined
-                    label="Dirección"
-                    v-model="supplier.address"
+                    label="Descripción"
+                    v-model="category.description"
                   />
                 </v-col>
               </v-row>
               <v-row class="my-5">
                 <v-col cols="12" md="6">
+                  <div v-if="errors.local_image_url" class="red--text">
+                    {{ errors.local_image_url }}
+                  </div>
                   <v-text-field
                     outlined
-                    label="Responsable"
-                    v-model="supplier.responsable"
-                    :rules="responsableRules"
+                    label="Url imagen local"
+                    v-model="category.local_image_url"
                   />
                 </v-col>
                 <v-col cols="12" md="6">
+                  <div v-if="errors.web_image_url" class="red--text">
+                    {{ errors.web_image_url }}
+                  </div>
                   <v-text-field
                     outlined
-                    label="Teléfono"
-                    v-model="supplier.phone_number"
-                    :rules="phoneRules"
+                    label="Url imagen web"
+                    v-model="category.web_image_url"
                   />
                 </v-col>
               </v-row>
-            </v-card>
-          </v-col>
-        </v-row>
-      </div>
-    </v-form>  
+
+              <v-row class="my-5">
+                <v-col cols="12" md="6">
+                  <div v-if="errors.firestore_reference" class="red--text">
+                    {{ errors.firestore_reference }}
+                  </div>
+                  <v-text-field
+                    outlined
+                    label="Url imagen local"
+                    v-model="category.firestore_reference"
+                  />
+                </v-col>
+              </v-row>
+
+              <v-card-text>
+                <v-row>
+                  <v-spacer></v-spacer>
+
+                  <v-btn
+                    class="m-2"
+                    color="secondary"
+                    :href="$route('catalogs.categories.index')"
+                    :block="$vuetify.breakpoint.xs"
+                  >
+                    Regresar
+                    <v-icon dark right> mdi-keyboard-return</v-icon>
+                  </v-btn>
+
+                  <v-btn
+                    class="m-2"
+                    color="primary"
+                    depressed
+                    @click="validate"
+                    :disabled="!status"
+                    :block="$vuetify.breakpoint.xs"
+                  >
+                    Actualizar
+                    <v-icon dark right> mdi-check </v-icon>
+                  </v-btn>
+                </v-row>
+              </v-card-text>
+            </v-form>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-app>
 </template>
 
 <script>
 import AppBar from "@/components/AppBar";
 
 export default {
-  name: "Edit",
+  name: "CategoriesEdit",
   components: {
     AppBar,
   },
-  created() {
-    this.supplierId = this.$route.params.id;
-    this.findSupplier(this.supplierId);
+  props: {
+    errors: Object,
+    category: Object,
   },
-  data() {
-    return {
-      supplierId: 0,
-      status: false,
-      supplier: {},
-      nameRules: [
-        (v) => !!v || "Ingrese el nombre",
-        (v) =>
-          !v ||
-          v.length >= 3 ||
-          "El nombre debe contener almenos dos caracteres",
-      ],
-      responsableRules: [
-        (v) => !!v || "Es importante identificar un contacto",
-        (v) =>
-          !v ||
-          v.length >= 3 ||
-          "El nombre debe contener almenos dos caracteres",
-      ],
-      phoneRules: [
-        (v) =>
-          !!v || "Ingrese un número de teléfono para contactar al proveedor",
-        (v) => !v || v.length >= 3 || "Ingrese un número de teléfono valido",
-      ],
-    };
-  },
+  data: () => ({
+    status: false,
+
+    titleRules: [
+      (v) => !!v || "Ingrese el nombre",
+      (v) => !v || v.length >= 3 || "El nombre debe contener almenos dos caracteres",
+    ],
+  }),
   methods: {
     validate(event) {
-      let valid = this.$refs.form.validate();      
-      if (valid == true) this.updateSupplier();
+      let valid = this.$refs.form.validate();
+      if (valid == true) this.storeCategory();
     },
-    findSupplier() {
-      dispatch(
-        {
-          controller: "suppliers",
-          action: "find",
-          params: this.supplierId,
-        },
-        (response) => {
-          
-          this.supplier = response;
-        }
-      );
-    },
-    updateSupplier() {
-      dispatch(
-        {
-          controller: "suppliers",
-          action: "update",
-          params: this.supplier,
-        },
-        (response) => {            
-          router.push({ name: "CatalogsSuppliers" });
-        }
+    storeCategory() {
+      this.$inertia.put(
+        route("catalogs.categories.update", this.category),
+        this.category
       );
     },
   },
 };
 </script>
-
-<style>
-</style>

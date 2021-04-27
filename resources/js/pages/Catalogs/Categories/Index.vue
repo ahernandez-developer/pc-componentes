@@ -7,7 +7,7 @@
           <v-card outlined>
             <v-data-table
               :headers="headers"
-              :items="suppliers"
+              :items="categories"
               class="elevation-0 primary--text"
               light
             >
@@ -21,43 +21,53 @@
               </template>
               <template v-slot:top>
                 <v-toolbar flat>
-                  <v-toolbar-title>Proveedores</v-toolbar-title>
+                  <v-toolbar-title>Categor&iacute;as</v-toolbar-title>
 
                   <v-spacer></v-spacer>
-                  <inertia-link href="/admin/catalogs/suppliers/create">
-                    <v-btn color="primary" dark class="mb-2"> Agregar </v-btn>
-                  </inertia-link>
+
+                  <v-btn :href="$route('catalogs')" color="secondary" dark class="m-2">
+                    Regresar a cat&aacute;logos
+                    <v-icon right>mdi-keyboard-return</v-icon>
+                  </v-btn>
+                  <v-btn
+                    :href="$route('catalogs.categories.create')"
+                    color="primary"
+                    class="m-2"
+                  >
+                    Agregar
+                    <v-icon right>mdi-plus</v-icon>
+                  </v-btn>
                 </v-toolbar>
                 <v-dialog v-model="dialogtoggle" max-width="500px">
-                  <v-card
-                    color="tertiary"
-                    min-height="200px"
-                    class="d-flex flex-column"
-                  >
-                    <v-card-title class="primary--text mx-auto">
+                  <v-card color="secondary" min-height="200px" class="d-flex flex-column">
+                    <v-card-title>
                       <v-row align="center">
-                        ¿Seguro que deseas
-                        {{
-                          selectedSupplier.is_active ? "desactivar" : "activar"
-                        }}
-                        al proveedor {{ selectedSupplier.name }}?
+                        <p class="white--text px-3">
+                          ¿Seguro que deseas
+                          {{ selectedCategory.is_active ? "desactivar" : "activar" }}
+                          la categor&iacutea;
+                          <span class="primary--text">
+                            {{ selectedCategory.title }}
+                          </span>
+                          ?
+                        </p>
                       </v-row></v-card-title
                     >
                     <v-spacer></v-spacer>
                     <v-card-actions>
                       <v-spacer></v-spacer>
                       <v-btn
-                        color="info"
-                        class="primary--text text-capitalize"
+                        color="primary"
+                        class="white--text text-uppercase"
                         @click="closetoggle"
                         >Cancelar</v-btn
                       >
                       <v-spacer></v-spacer>
                       <v-btn
-                        color="accent"
-                        class="primary--text text-capitalize"
+                        color="success"
+                        class="white--text text-uppercase"
                         @click="toggleItemConfirm"
-                        >Aceptar</v-btn
+                        >Confirmar</v-btn
                       >
                       <v-spacer></v-spacer>
                     </v-card-actions>
@@ -66,31 +76,30 @@
                 </v-dialog>
               </template>
               <template v-slot:[`item.actions`]="{ item }">
-                <v-icon md @click="show(item.id)"> mdi-eye </v-icon>
-                <v-icon md @click="edit(item.id)" class="mx-2">
-                  mdi-pencil
-                </v-icon>
+                <a :href="$route('catalogs.categories.show', item.id)">
+                  <v-icon md class="mx-2"> mdi-eye </v-icon>
+                </a>
+                <a :href="$route('catalogs.categories.edit', item.id)">
+                  <v-icon md class="mx-2"> mdi-pencil </v-icon>
+                </a>
                 <v-icon md @click="toggleItem(item)">
                   {{ item.is_active ? "mdi-delete" : "mdi-undo-variant" }}
                 </v-icon>
               </template>
               <template v-slot:no-data>
-                <v-btn color="primary" class="text-capitalize">
-                  Agregar un nuevo proveedor
+                <v-btn
+                  :href="$route('catalogs.categories.create')"
+                  color="primary"
+                  class="text-uppercase"
+                >
+                  Agregar nueva categor&iacute;a
+                  <v-icon right>mdi-plus</v-icon>
                 </v-btn>
               </template>
             </v-data-table>
           </v-card>
         </v-col>
       </v-row>
-      <v-snackbar v-model="snackbar">
-        Se ha {{ snackbarSubText }} con exito el proveedor {{ snackbarText }}
-        <template v-slot:action="{ attrs }">
-          <v-btn color="pink" text v-bind="attrs" @click="snackbar = false">
-            Cerrar
-          </v-btn>
-        </template>
-      </v-snackbar>
     </v-container>
   </v-app>
 </template>
@@ -99,20 +108,18 @@
 import AppBar from "@/components/AppBar";
 
 export default {
-  name: "Suppliers",
+  name: "Categories",
   components: {
     AppBar,
   },
-  props: ["suppliers"],
-  created() {
-    this.fetch();
-  },
+  props: ["categories"],
+
   data() {
     return {
-      selectedSupplier: {},
+      selectedCategory: {},
       dialog: false,
       dialogtoggle: false,
-      snackbar: false,
+
       snackbarText: "",
       snackbarSubText: "",
       headers: [
@@ -122,10 +129,11 @@ export default {
           sortable: true,
           value: "id",
         },
-        { text: "Nombre", value: "name" },
-        { text: "Responsable", value: "responsable" },
-        { text: "Teléfono", value: "phone_number" },
-        { text: "Dirección", value: "address" },
+        { text: "Nombre", value: "title" },
+        { text: "Descripción", value: "description" },
+        { text: "Imagen local", value: "local_image_url" },
+        { text: "Imagen web", value: "web_image_url" },
+        { text: "Firestore", value: "firestore_reference" },
         { text: "Estado", value: "is_active" },
         {
           text: "Acciones",
@@ -140,49 +148,28 @@ export default {
   methods: {
     fetch() {},
     toggleItem(item) {
-      this.selectedSupplier = Object.assign({}, item);
+      this.selectedCategory = Object.assign({}, item);
       this.dialogtoggle = true;
     },
     toggleItemConfirm() {
-      this.snackbarText = this.selectedSupplier.name;
-      this.snackbarSubText = this.selectedSupplier.is_active
-        ? "desactivado"
-        : "activado";
-      dispatch(
-        {
-          controller: "suppliers",
-          action: "status",
-          params: this.selectedSupplier.id,
-        },
-        () => {
-          this.snackbar = true;
-          this.fetch();
-          this.closetoggle();
-        }
+      this.snackbarText = this.selectedCategory.title;
+      this.snackbarSubText = this.selectedCategory.is_active ? "desactivado" : "activado";
+      this.$inertia.delete(
+        this.$route("catalogs.categories.destroy", this.selectedCategory.id),
+        this.selectedCategory.id
       );
+      this.closetoggle();
     },
     closetoggle() {
       this.dialogtoggle = false;
 
-      this.selectedSupplier = {};
-    },
-    show(id) {
-      router.push({
-        name: "CatalogsSuppliersShow",
-        params: { id: id },
-      });
-    },
-    edit(id) {
-      router.push({
-        name: "CatalogsSuppliersEdit",
-        params: { id: id },
-      });
+      this.selectedCategory = {};
     },
   },
 };
 </script>
 
-<style >
+<style>
 a:link {
   text-decoration: none;
 }

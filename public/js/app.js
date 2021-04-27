@@ -61619,13 +61619,11 @@ var map = {
 	],
 	"./Catalogs/Categories/Show": [
 		"./resources/js/pages/Catalogs/Categories/Show.vue",
-		0,
-		18
+		19
 	],
 	"./Catalogs/Categories/Show.vue": [
 		"./resources/js/pages/Catalogs/Categories/Show.vue",
-		0,
-		18
+		19
 	],
 	"./Catalogs/Index": [
 		"./resources/js/pages/Catalogs/Index.vue",

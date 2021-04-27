@@ -152,22 +152,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "Suppliers",
+  name: "Categories",
   components: {
     AppBar: _components_AppBar__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  props: ["suppliers"],
-  created: function created() {
-    this.fetch();
-  },
+  props: ["categories"],
   data: function data() {
     return {
-      selectedSupplier: {},
+      selectedCategory: {},
       dialog: false,
       dialogtoggle: false,
-      snackbar: false,
       snackbarText: "",
       snackbarSubText: "",
       headers: [{
@@ -177,16 +182,19 @@ __webpack_require__.r(__webpack_exports__);
         value: "id"
       }, {
         text: "Nombre",
-        value: "name"
+        value: "title"
       }, {
-        text: "Responsable",
-        value: "responsable"
+        text: "Descripción",
+        value: "description"
       }, {
-        text: "Teléfono",
-        value: "phone_number"
+        text: "Imagen local",
+        value: "local_image_url"
       }, {
-        text: "Dirección",
-        value: "address"
+        text: "Imagen web",
+        value: "web_image_url"
+      }, {
+        text: "Firestore",
+        value: "firestore_reference"
       }, {
         text: "Estado",
         value: "is_active"
@@ -202,45 +210,18 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     fetch: function fetch() {},
     toggleItem: function toggleItem(item) {
-      this.selectedSupplier = Object.assign({}, item);
+      this.selectedCategory = Object.assign({}, item);
       this.dialogtoggle = true;
     },
     toggleItemConfirm: function toggleItemConfirm() {
-      var _this = this;
-
-      this.snackbarText = this.selectedSupplier.name;
-      this.snackbarSubText = this.selectedSupplier.is_active ? "desactivado" : "activado";
-      dispatch({
-        controller: "suppliers",
-        action: "status",
-        params: this.selectedSupplier.id
-      }, function () {
-        _this.snackbar = true;
-
-        _this.fetch();
-
-        _this.closetoggle();
-      });
+      this.snackbarText = this.selectedCategory.title;
+      this.snackbarSubText = this.selectedCategory.is_active ? "desactivado" : "activado";
+      this.$inertia["delete"](this.$route("catalogs.categories.destroy", this.selectedCategory.id), this.selectedCategory.id);
+      this.closetoggle();
     },
     closetoggle: function closetoggle() {
       this.dialogtoggle = false;
-      this.selectedSupplier = {};
-    },
-    show: function show(id) {
-      router.push({
-        name: "CatalogsSuppliersShow",
-        params: {
-          id: id
-        }
-      });
-    },
-    edit: function edit(id) {
-      router.push({
-        name: "CatalogsSuppliersEdit",
-        params: {
-          id: id
-        }
-      });
+      this.selectedCategory = {};
     }
   }
 });
@@ -434,7 +415,7 @@ var render = function() {
                         staticClass: "elevation-0 primary--text",
                         attrs: {
                           headers: _vm.headers,
-                          items: _vm.suppliers,
+                          items: _vm.categories,
                           light: ""
                         },
                         scopedSlots: _vm._u(
@@ -470,30 +451,53 @@ var render = function() {
                                     { attrs: { flat: "" } },
                                     [
                                       _c("v-toolbar-title", [
-                                        _vm._v("Proveedores")
+                                        _vm._v("Categorías")
                                       ]),
                                       _vm._v(" "),
                                       _c("v-spacer"),
                                       _vm._v(" "),
                                       _c(
-                                        "inertia-link",
+                                        "v-btn",
                                         {
+                                          staticClass: "m-2",
                                           attrs: {
-                                            href:
-                                              "/admin/catalogs/suppliers/create"
+                                            href: _vm.$route("catalogs"),
+                                            color: "secondary",
+                                            dark: ""
                                           }
                                         },
                                         [
+                                          _vm._v(
+                                            "\n                  Regresar a catálogos\n                  "
+                                          ),
                                           _c(
-                                            "v-btn",
-                                            {
-                                              staticClass: "mb-2",
-                                              attrs: {
-                                                color: "primary",
-                                                dark: ""
-                                              }
-                                            },
-                                            [_vm._v(" Agregar ")]
+                                            "v-icon",
+                                            { attrs: { right: "" } },
+                                            [_vm._v("mdi-keyboard-return")]
+                                          )
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-btn",
+                                        {
+                                          staticClass: "m-2",
+                                          attrs: {
+                                            href: _vm.$route(
+                                              "catalogs.categories.create"
+                                            ),
+                                            color: "primary"
+                                          }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                  Agregar\n                  "
+                                          ),
+                                          _c(
+                                            "v-icon",
+                                            { attrs: { right: "" } },
+                                            [_vm._v("mdi-plus")]
                                           )
                                         ],
                                         1
@@ -520,36 +524,57 @@ var render = function() {
                                         {
                                           staticClass: "d-flex flex-column",
                                           attrs: {
-                                            color: "tertiary",
+                                            color: "secondary",
                                             "min-height": "200px"
                                           }
                                         },
                                         [
                                           _c(
                                             "v-card-title",
-                                            {
-                                              staticClass:
-                                                "primary--text mx-auto"
-                                            },
                                             [
                                               _c(
                                                 "v-row",
                                                 { attrs: { align: "center" } },
                                                 [
-                                                  _vm._v(
-                                                    "\n                      ¿Seguro que deseas\n                      " +
-                                                      _vm._s(
-                                                        _vm.selectedSupplier
-                                                          .is_active
-                                                          ? "desactivar"
-                                                          : "activar"
-                                                      ) +
-                                                      "\n                      al proveedor " +
-                                                      _vm._s(
-                                                        _vm.selectedSupplier
-                                                          .name
-                                                      ) +
-                                                      "?\n                    "
+                                                  _c(
+                                                    "p",
+                                                    {
+                                                      staticClass:
+                                                        "white--text px-3"
+                                                    },
+                                                    [
+                                                      _vm._v(
+                                                        "\n                        ¿Seguro que deseas\n                        " +
+                                                          _vm._s(
+                                                            _vm.selectedCategory
+                                                              .is_active
+                                                              ? "desactivar"
+                                                              : "activar"
+                                                          ) +
+                                                          "\n                        la categoría;\n                        "
+                                                      ),
+                                                      _c(
+                                                        "span",
+                                                        {
+                                                          staticClass:
+                                                            "primary--text"
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "\n                          " +
+                                                              _vm._s(
+                                                                _vm
+                                                                  .selectedCategory
+                                                                  .title
+                                                              ) +
+                                                              "\n                        "
+                                                          )
+                                                        ]
+                                                      ),
+                                                      _vm._v(
+                                                        "\n                        ?\n                      "
+                                                      )
+                                                    ]
                                                   )
                                                 ]
                                               )
@@ -568,8 +593,8 @@ var render = function() {
                                                 "v-btn",
                                                 {
                                                   staticClass:
-                                                    "primary--text text-capitalize",
-                                                  attrs: { color: "info" },
+                                                    "white--text text-uppercase",
+                                                  attrs: { color: "primary" },
                                                   on: { click: _vm.closetoggle }
                                                 },
                                                 [_vm._v("Cancelar")]
@@ -581,13 +606,13 @@ var render = function() {
                                                 "v-btn",
                                                 {
                                                   staticClass:
-                                                    "primary--text text-capitalize",
-                                                  attrs: { color: "accent" },
+                                                    "white--text text-uppercase",
+                                                  attrs: { color: "success" },
                                                   on: {
                                                     click: _vm.toggleItemConfirm
                                                   }
                                                 },
-                                                [_vm._v("Aceptar")]
+                                                [_vm._v("Confirmar")]
                                               ),
                                               _vm._v(" "),
                                               _c("v-spacer")
@@ -612,34 +637,49 @@ var render = function() {
                                 var item = ref.item
                                 return [
                                   _c(
-                                    "v-icon",
+                                    "a",
                                     {
-                                      attrs: { md: "" },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.show(item.id)
-                                        }
-                                      }
-                                    },
-                                    [_vm._v(" mdi-eye ")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-icon",
-                                    {
-                                      staticClass: "mx-2",
-                                      attrs: { md: "" },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.edit(item.id)
-                                        }
+                                      attrs: {
+                                        href: _vm.$route(
+                                          "catalogs.categories.show",
+                                          item.id
+                                        )
                                       }
                                     },
                                     [
-                                      _vm._v(
-                                        "\n                mdi-pencil\n              "
+                                      _c(
+                                        "v-icon",
+                                        {
+                                          staticClass: "mx-2",
+                                          attrs: { md: "" }
+                                        },
+                                        [_vm._v(" mdi-eye ")]
                                       )
-                                    ]
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "a",
+                                    {
+                                      attrs: {
+                                        href: _vm.$route(
+                                          "catalogs.categories.edit",
+                                          item.id
+                                        )
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "v-icon",
+                                        {
+                                          staticClass: "mx-2",
+                                          attrs: { md: "" }
+                                        },
+                                        [_vm._v(" mdi-pencil ")]
+                                      )
+                                    ],
+                                    1
                                   ),
                                   _vm._v(" "),
                                   _c(
@@ -674,14 +714,23 @@ var render = function() {
                                   _c(
                                     "v-btn",
                                     {
-                                      staticClass: "text-capitalize",
-                                      attrs: { color: "primary" }
+                                      staticClass: "text-uppercase",
+                                      attrs: {
+                                        href: _vm.$route(
+                                          "catalogs.categories.create"
+                                        ),
+                                        color: "primary"
+                                      }
                                     },
                                     [
                                       _vm._v(
-                                        "\n                Agregar un nuevo proveedor\n              "
-                                      )
-                                    ]
+                                        "\n                Agregar nueva categoría\n                "
+                                      ),
+                                      _c("v-icon", { attrs: { right: "" } }, [
+                                        _vm._v("mdi-plus")
+                                      ])
+                                    ],
+                                    1
                                   )
                                 ]
                               },
@@ -700,55 +749,6 @@ var render = function() {
               )
             ],
             1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-snackbar",
-            {
-              scopedSlots: _vm._u([
-                {
-                  key: "action",
-                  fn: function(ref) {
-                    var attrs = ref.attrs
-                    return [
-                      _c(
-                        "v-btn",
-                        _vm._b(
-                          {
-                            attrs: { color: "pink", text: "" },
-                            on: {
-                              click: function($event) {
-                                _vm.snackbar = false
-                              }
-                            }
-                          },
-                          "v-btn",
-                          attrs,
-                          false
-                        ),
-                        [_vm._v("\n          Cerrar\n        ")]
-                      )
-                    ]
-                  }
-                }
-              ]),
-              model: {
-                value: _vm.snackbar,
-                callback: function($$v) {
-                  _vm.snackbar = $$v
-                },
-                expression: "snackbar"
-              }
-            },
-            [
-              _vm._v(
-                "\n      Se ha " +
-                  _vm._s(_vm.snackbarSubText) +
-                  " con exito el proveedor " +
-                  _vm._s(_vm.snackbarText) +
-                  "\n      "
-              )
-            ]
           )
         ],
         1
@@ -1020,8 +1020,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VDataTable */ "./node_modules/vuetify/lib/components/VDataTable/index.js");
 /* harmony import */ var vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VDialog */ "./node_modules/vuetify/lib/components/VDialog/index.js");
 /* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
-/* harmony import */ var vuetify_lib_components_VSnackbar__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vuetify/lib/components/VSnackbar */ "./node_modules/vuetify/lib/components/VSnackbar/index.js");
-/* harmony import */ var vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! vuetify/lib/components/VToolbar */ "./node_modules/vuetify/lib/components/VToolbar/index.js");
+/* harmony import */ var vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vuetify/lib/components/VToolbar */ "./node_modules/vuetify/lib/components/VToolbar/index.js");
 
 
 
@@ -1058,8 +1057,7 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VApp: vuetify_lib_components_VApp__WEBPACK_IMPORTED_MODULE_5__["VApp"],VAvatar: vuetify_lib_components_VAvatar__WEBPACK_IMPORTED_MODULE_6__["VAvatar"],VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_7__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_8__["VCard"],VCardActions: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_8__["VCardActions"],VCardTitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_8__["VCardTitle"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_9__["VCol"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_9__["VContainer"],VDataTable: vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_10__["VDataTable"],VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_11__["VDialog"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_12__["VIcon"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_9__["VRow"],VSnackbar: vuetify_lib_components_VSnackbar__WEBPACK_IMPORTED_MODULE_13__["VSnackbar"],VSpacer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_9__["VSpacer"],VToolbar: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_14__["VToolbar"],VToolbarTitle: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_14__["VToolbarTitle"]})
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VApp: vuetify_lib_components_VApp__WEBPACK_IMPORTED_MODULE_5__["VApp"],VAvatar: vuetify_lib_components_VAvatar__WEBPACK_IMPORTED_MODULE_6__["VAvatar"],VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_7__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_8__["VCard"],VCardActions: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_8__["VCardActions"],VCardTitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_8__["VCardTitle"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_9__["VCol"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_9__["VContainer"],VDataTable: vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_10__["VDataTable"],VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_11__["VDialog"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_12__["VIcon"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_9__["VRow"],VSpacer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_9__["VSpacer"],VToolbar: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_13__["VToolbar"],VToolbarTitle: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_13__["VToolbarTitle"]})
 
 
 /* hot reload */

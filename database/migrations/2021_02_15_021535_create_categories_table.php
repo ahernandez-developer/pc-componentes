@@ -20,7 +20,7 @@ class CreateCategoriesTable extends Migration
             $table->string('local_image_url');
             $table->string('web_image_url');
             $table->string('firestore_reference');
-            $table->string('is_active');
+            $table->boolean('is_active')->default(1);
             $table->timestamps();
         });
     }

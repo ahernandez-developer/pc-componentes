@@ -16,7 +16,6 @@ class SuppliersController extends Controller
         return Inertia::render('Catalogs/Suppliers/Index')->with(compact('suppliers'));
     }
 
-
     public function create()
     {
         return Inertia::render('Catalogs/Suppliers/Create');

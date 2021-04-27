@@ -1,37 +1,21 @@
 <template>
-  <v-form lazy-validation ref="form">
-    <div class="px-10 py-4">
-      <v-row justify="space-between">
-        <h1 class="ma-3">Detalles de proveedor</h1>
-        <v-btn
-          class="ma-3 primary--text text-capitalize"
-          color="accent"
-          depressed
-          to="/catalogs/suppliers"
-          :disabled="!status"
-        >
-          Volver
-          <v-icon dark right> mdi-undo-variant </v-icon>
-        </v-btn>
-      </v-row>
+  <v-app>
+    <v-container style="height: 92%" fill-height>
+      <app-bar />
       <v-row>
-        <v-col>
-          <v-card light class="pa-5">
+        <v-col cols="12" sm="12">
+          <v-card outlined light class="mt-7 pa-5">
+            <v-card-title> Informaci&oacute;n de categor&iacute;a </v-card-title>
             <v-row class="my-5">
               <v-col cols="12" md="6">
-                <v-text-field
-                  outlined
-                  label="Nombre"
-                  readonly
-                  v-model="supplier.name"
-                />
+                <v-text-field outlined label="Nombre" v-model="category.title">
+                </v-text-field>
               </v-col>
               <v-col cols="12" md="6">
                 <v-text-field
                   outlined
-                  label="Dirección"
-                  readonly
-                  v-model="supplier.address"
+                  label="Descripción"
+                  v-model="category.description"
                 />
               </v-col>
             </v-row>
@@ -39,101 +23,58 @@
               <v-col cols="12" md="6">
                 <v-text-field
                   outlined
-                  label="Responsable"
-                  readonly
-                  v-model="supplier.responsable"
+                  label="Url imagen local"
+                  v-model="category.local_image_url"
                 />
               </v-col>
               <v-col cols="12" md="6">
                 <v-text-field
                   outlined
-                  label="Teléfono"
-                  readonly
-                  v-model="supplier.phone_number"
+                  label="Url imagen web"
+                  v-model="category.web_image_url"
+                />
+              </v-col>
+              <v-col cols="12" md="6">
+                <v-text-field
+                  outlined
+                  label="Firestore"
+                  v-model="category.firestore_reference"
                 />
               </v-col>
             </v-row>
-            <v-row class="my-5">
-              <v-col cols="12" md="6">
-                <v-text-field
-                  outlined
-                  append-icon="mdi-circle"
-                  label="Estado"
-                  readonly
-                  :color="supplier.is_active ? 'green' : 'red'"
-                  v-model="status"
-                />
-              </v-col>
-              <v-col cols="12" md="6"> </v-col>
-            </v-row>
-            <v-row class="my-5">
-              <v-col cols="12" md="6">
-                <v-text-field
-                  outlined
-                  label="Fecha de alta"
-                  readonly
-                  :value="supplier.created_at | moment"
-                />
-              </v-col>
-              <v-col cols="12" md="6">
-                <v-text-field
-                  outlined
-                  label="Última actualización"
-                  readonly
-                  :value="supplier.updated_at | moment"
-                />
-              </v-col>
-            </v-row>
+
+            <v-card-text>
+              <v-row>
+                <v-spacer></v-spacer>
+
+                <v-btn
+                  class="m-2"
+                  color="secondary"
+                  :href="$route('catalogs.categories.index')"
+                  :block="$vuetify.breakpoint.xs"
+                >
+                  Regresar
+                  <v-icon dark right> mdi-keyboard-return</v-icon>
+                </v-btn>
+              </v-row>
+            </v-card-text>
           </v-card>
         </v-col>
       </v-row>
-    </div>
-  </v-form>
+    </v-container>
+  </v-app>
 </template>
 
 <script>
 import AppBar from "@/components/AppBar";
-import moment from "moment";
 
 export default {
-  name: "Show",
+  name: "CategoriesShow",
   components: {
     AppBar,
   },
-  created() {
-    this.supplierId = this.$route.params.id;
-    this.findSupplier(this.supplierId);
-    moment.locale("es");
-  },
-  data() {
-    return {
-      supplierId: 0,
-      status: false,
-      supplier: {},
-    };
-  },
-  methods: {
-    findSupplier() {
-      dispatch(
-        {
-          controller: "suppliers",
-          action: "find",
-          params: this.supplierId,
-        },
-        (response) => {
-          this.supplier = response;
-          this.status = this.supplier.is_active ? "Activo" : "Deshabilitado";
-        }
-      );
-    },
-  },
-  filters: {
-    moment: function (date) {
-      return moment(date).format("MMMM Do YYYY, h:mm:ss a");
-    },
+  props: {
+    category: Object,
   },
 };
 </script>
-
-<style>
-</style>

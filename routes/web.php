@@ -22,6 +22,7 @@ Route::group(['middleware' => 'auth'], function () {
 Route::get('/admin', "AdminController@index");
 Route::get('/admin/inventory', "InventoryController@index");
 Route::get('/admin/catalogs', "CatalogController@index")->name('catalogs');
+Route::resource('/admin/catalogs/categories', "Catalogs\CategoriesController", ['as' => 'catalogs']);
 Route::resource('/admin/catalogs/suppliers', "Catalogs\SuppliersController", ['as' => 'catalogs']);
 Route::resource('/admin/catalogs/measures', "Catalogs\MeasuresController", ['as' => 'catalogs']);
 Route::resource('/admin/catalogs/supplies', "Catalogs\SuppliesController", ['as' => 'catalogs']);
