@@ -61498,281 +61498,6 @@ module.exports = g;
 
 /***/ }),
 
-/***/ "./resources/js/Pages lazy recursive ^\\.\\/.*$":
-/*!***********************************************************!*\
-  !*** ./resources/js/Pages lazy ^\.\/.*$ namespace object ***!
-  \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var map = {
-	"./About": [
-		"./resources/js/Pages/About.vue",
-		11
-	],
-	"./About.vue": [
-		"./resources/js/Pages/About.vue",
-		11
-	],
-	"./Admin/Dashboard": [
-		"./resources/js/Pages/Admin/Dashboard.vue",
-		0,
-		7
-	],
-	"./Admin/Dashboard.vue": [
-		"./resources/js/Pages/Admin/Dashboard.vue",
-		0,
-		7
-	],
-	"./Admin/Show": [
-		"./resources/js/Pages/Admin/Show.vue",
-		12
-	],
-	"./Admin/Show.vue": [
-		"./resources/js/Pages/Admin/Show.vue",
-		12
-	],
-	"./Auth/Login": [
-		"./resources/js/Pages/Auth/Login.vue",
-		13
-	],
-	"./Auth/Login.vue": [
-		"./resources/js/Pages/Auth/Login.vue",
-		13
-	],
-	"./Catalogs/Categories/Create": [
-		"./resources/js/Pages/Catalogs/Categories/Create.vue",
-		19
-	],
-	"./Catalogs/Categories/Create.vue": [
-		"./resources/js/Pages/Catalogs/Categories/Create.vue",
-		19
-	],
-	"./Catalogs/Categories/Edit": [
-		"./resources/js/Pages/Catalogs/Categories/Edit.vue",
-		20
-	],
-	"./Catalogs/Categories/Edit.vue": [
-		"./resources/js/Pages/Catalogs/Categories/Edit.vue",
-		20
-	],
-	"./Catalogs/Categories/Index": [
-		"./resources/js/Pages/Catalogs/Categories/Index.vue",
-		15
-	],
-	"./Catalogs/Categories/Index.vue": [
-		"./resources/js/Pages/Catalogs/Categories/Index.vue",
-		15
-	],
-	"./Catalogs/Categories/Show": [
-		"./resources/js/Pages/Catalogs/Categories/Show.vue",
-		1,
-		27
-	],
-	"./Catalogs/Categories/Show.vue": [
-		"./resources/js/Pages/Catalogs/Categories/Show.vue",
-		1,
-		27
-	],
-	"./Catalogs/Index": [
-		"./resources/js/Pages/Catalogs/Index.vue",
-		0,
-		8
-	],
-	"./Catalogs/Index.vue": [
-		"./resources/js/Pages/Catalogs/Index.vue",
-		0,
-		8
-	],
-	"./Catalogs/Measures/Create": [
-		"./resources/js/Pages/Catalogs/Measures/Create.vue",
-		21
-	],
-	"./Catalogs/Measures/Create.vue": [
-		"./resources/js/Pages/Catalogs/Measures/Create.vue",
-		21
-	],
-	"./Catalogs/Measures/Edit": [
-		"./resources/js/Pages/Catalogs/Measures/Edit.vue",
-		22
-	],
-	"./Catalogs/Measures/Edit.vue": [
-		"./resources/js/Pages/Catalogs/Measures/Edit.vue",
-		22
-	],
-	"./Catalogs/Measures/Index": [
-		"./resources/js/Pages/Catalogs/Measures/Index.vue",
-		16
-	],
-	"./Catalogs/Measures/Index.vue": [
-		"./resources/js/Pages/Catalogs/Measures/Index.vue",
-		16
-	],
-	"./Catalogs/Measures/Show": [
-		"./resources/js/Pages/Catalogs/Measures/Show.vue",
-		1,
-		28
-	],
-	"./Catalogs/Measures/Show.vue": [
-		"./resources/js/Pages/Catalogs/Measures/Show.vue",
-		1,
-		28
-	],
-	"./Catalogs/Products/Create": [
-		"./resources/js/Pages/Catalogs/Products/Create.vue",
-		23
-	],
-	"./Catalogs/Products/Create.vue": [
-		"./resources/js/Pages/Catalogs/Products/Create.vue",
-		23
-	],
-	"./Catalogs/Products/Edit": [
-		"./resources/js/Pages/Catalogs/Products/Edit.vue",
-		24
-	],
-	"./Catalogs/Products/Edit.vue": [
-		"./resources/js/Pages/Catalogs/Products/Edit.vue",
-		24
-	],
-	"./Catalogs/Products/Index": [
-		"./resources/js/Pages/Catalogs/Products/Index.vue",
-		17
-	],
-	"./Catalogs/Products/Index.vue": [
-		"./resources/js/Pages/Catalogs/Products/Index.vue",
-		17
-	],
-	"./Catalogs/Products/Show": [
-		"./resources/js/Pages/Catalogs/Products/Show.vue",
-		1,
-		29
-	],
-	"./Catalogs/Products/Show.vue": [
-		"./resources/js/Pages/Catalogs/Products/Show.vue",
-		1,
-		29
-	],
-	"./Catalogs/Suppliers/Create": [
-		"./resources/js/Pages/Catalogs/Suppliers/Create.vue",
-		4
-	],
-	"./Catalogs/Suppliers/Create.vue": [
-		"./resources/js/Pages/Catalogs/Suppliers/Create.vue",
-		4
-	],
-	"./Catalogs/Suppliers/Edit": [
-		"./resources/js/Pages/Catalogs/Suppliers/Edit.vue",
-		5
-	],
-	"./Catalogs/Suppliers/Edit.vue": [
-		"./resources/js/Pages/Catalogs/Suppliers/Edit.vue",
-		5
-	],
-	"./Catalogs/Suppliers/Index": [
-		"./resources/js/Pages/Catalogs/Suppliers/Index.vue",
-		2
-	],
-	"./Catalogs/Suppliers/Index.vue": [
-		"./resources/js/Pages/Catalogs/Suppliers/Index.vue",
-		2
-	],
-	"./Catalogs/Suppliers/Show": [
-		"./resources/js/Pages/Catalogs/Suppliers/Show.vue",
-		1,
-		6
-	],
-	"./Catalogs/Suppliers/Show.vue": [
-		"./resources/js/Pages/Catalogs/Suppliers/Show.vue",
-		1,
-		6
-	],
-	"./Catalogs/Supplies/Create": [
-		"./resources/js/Pages/Catalogs/Supplies/Create.vue",
-		25
-	],
-	"./Catalogs/Supplies/Create.vue": [
-		"./resources/js/Pages/Catalogs/Supplies/Create.vue",
-		25
-	],
-	"./Catalogs/Supplies/Edit": [
-		"./resources/js/Pages/Catalogs/Supplies/Edit.vue",
-		26
-	],
-	"./Catalogs/Supplies/Edit.vue": [
-		"./resources/js/Pages/Catalogs/Supplies/Edit.vue",
-		26
-	],
-	"./Catalogs/Supplies/Index": [
-		"./resources/js/Pages/Catalogs/Supplies/Index.vue",
-		18
-	],
-	"./Catalogs/Supplies/Index.vue": [
-		"./resources/js/Pages/Catalogs/Supplies/Index.vue",
-		18
-	],
-	"./Catalogs/Supplies/Show": [
-		"./resources/js/Pages/Catalogs/Supplies/Show.vue",
-		1,
-		30
-	],
-	"./Catalogs/Supplies/Show.vue": [
-		"./resources/js/Pages/Catalogs/Supplies/Show.vue",
-		1,
-		30
-	],
-	"./Home": [
-		"./resources/js/Pages/Home.vue",
-		1,
-		14,
-		3
-	],
-	"./Home.vue": [
-		"./resources/js/Pages/Home.vue",
-		1,
-		14,
-		3
-	],
-	"./Index": [
-		"./resources/js/Pages/Index.vue",
-		10
-	],
-	"./Index.vue": [
-		"./resources/js/Pages/Index.vue",
-		10
-	],
-	"./Inventory/Index": [
-		"./resources/js/Pages/Inventory/Index.vue",
-		0,
-		9
-	],
-	"./Inventory/Index.vue": [
-		"./resources/js/Pages/Inventory/Index.vue",
-		0,
-		9
-	]
-};
-function webpackAsyncContext(req) {
-	if(!__webpack_require__.o(map, req)) {
-		return Promise.resolve().then(function() {
-			var e = new Error("Cannot find module '" + req + "'");
-			e.code = 'MODULE_NOT_FOUND';
-			throw e;
-		});
-	}
-
-	var ids = map[req], id = ids[0];
-	return Promise.all(ids.slice(1).map(__webpack_require__.e)).then(function() {
-		return __webpack_require__(id);
-	});
-}
-webpackAsyncContext.keys = function webpackAsyncContextKeys() {
-	return Object.keys(map);
-};
-webpackAsyncContext.id = "./resources/js/Pages lazy recursive ^\\.\\/.*$";
-module.exports = webpackAsyncContext;
-
-/***/ }),
-
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -61800,6 +61525,7 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].config.productionTip = false;
 vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(_inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_3__["plugin"]);
 vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(portal_vue__WEBPACK_IMPORTED_MODULE_2___default.a);
 vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vue_meta__WEBPACK_IMPORTED_MODULE_1__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.$route = route;
 _inertiajs_progress_src__WEBPACK_IMPORTED_MODULE_4__["InertiaProgress"].init();
 var el = document.getElementById("app");
 new vue__WEBPACK_IMPORTED_MODULE_0__["default"]({
@@ -61814,7 +61540,7 @@ new vue__WEBPACK_IMPORTED_MODULE_0__["default"]({
       props: {
         initialPage: JSON.parse(el.dataset.page),
         resolveComponent: function resolveComponent(name) {
-          return __webpack_require__("./resources/js/Pages lazy recursive ^\\.\\/.*$")("./".concat(name)).then(function (module) {
+          return __webpack_require__("./resources/js/pages lazy recursive ^\\.\\/.*$")("./".concat(name)).then(function (module) {
             return module["default"];
           });
         }
@@ -61822,6 +61548,279 @@ new vue__WEBPACK_IMPORTED_MODULE_0__["default"]({
     });
   }
 }).$mount(el);
+
+/***/ }),
+
+/***/ "./resources/js/pages lazy recursive ^\\.\\/.*$":
+/*!***********************************************************!*\
+  !*** ./resources/js/pages lazy ^\.\/.*$ namespace object ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var map = {
+	"./About": [
+		"./resources/js/pages/About.vue",
+		27
+	],
+	"./About.vue": [
+		"./resources/js/pages/About.vue",
+		27
+	],
+	"./Admin/Dashboard": [
+		"./resources/js/pages/Admin/Dashboard.vue",
+		1,
+		23
+	],
+	"./Admin/Dashboard.vue": [
+		"./resources/js/pages/Admin/Dashboard.vue",
+		1,
+		23
+	],
+	"./Admin/Show": [
+		"./resources/js/pages/Admin/Show.vue",
+		28
+	],
+	"./Admin/Show.vue": [
+		"./resources/js/pages/Admin/Show.vue",
+		28
+	],
+	"./Auth/Login": [
+		"./resources/js/pages/Auth/Login.vue",
+		29
+	],
+	"./Auth/Login.vue": [
+		"./resources/js/pages/Auth/Login.vue",
+		29
+	],
+	"./Catalogs/Categories/Create": [
+		"./resources/js/pages/Catalogs/Categories/Create.vue",
+		8
+	],
+	"./Catalogs/Categories/Create.vue": [
+		"./resources/js/pages/Catalogs/Categories/Create.vue",
+		8
+	],
+	"./Catalogs/Categories/Edit": [
+		"./resources/js/pages/Catalogs/Categories/Edit.vue",
+		9
+	],
+	"./Catalogs/Categories/Edit.vue": [
+		"./resources/js/pages/Catalogs/Categories/Edit.vue",
+		9
+	],
+	"./Catalogs/Categories/Index": [
+		"./resources/js/pages/Catalogs/Categories/Index.vue",
+		2
+	],
+	"./Catalogs/Categories/Index.vue": [
+		"./resources/js/pages/Catalogs/Categories/Index.vue",
+		2
+	],
+	"./Catalogs/Categories/Show": [
+		"./resources/js/pages/Catalogs/Categories/Show.vue",
+		0,
+		18
+	],
+	"./Catalogs/Categories/Show.vue": [
+		"./resources/js/pages/Catalogs/Categories/Show.vue",
+		0,
+		18
+	],
+	"./Catalogs/Index": [
+		"./resources/js/pages/Catalogs/Index.vue",
+		1,
+		24
+	],
+	"./Catalogs/Index.vue": [
+		"./resources/js/pages/Catalogs/Index.vue",
+		1,
+		24
+	],
+	"./Catalogs/Measures/Create": [
+		"./resources/js/pages/Catalogs/Measures/Create.vue",
+		10
+	],
+	"./Catalogs/Measures/Create.vue": [
+		"./resources/js/pages/Catalogs/Measures/Create.vue",
+		10
+	],
+	"./Catalogs/Measures/Edit": [
+		"./resources/js/pages/Catalogs/Measures/Edit.vue",
+		11
+	],
+	"./Catalogs/Measures/Edit.vue": [
+		"./resources/js/pages/Catalogs/Measures/Edit.vue",
+		11
+	],
+	"./Catalogs/Measures/Index": [
+		"./resources/js/pages/Catalogs/Measures/Index.vue",
+		3
+	],
+	"./Catalogs/Measures/Index.vue": [
+		"./resources/js/pages/Catalogs/Measures/Index.vue",
+		3
+	],
+	"./Catalogs/Measures/Show": [
+		"./resources/js/pages/Catalogs/Measures/Show.vue",
+		0,
+		19
+	],
+	"./Catalogs/Measures/Show.vue": [
+		"./resources/js/pages/Catalogs/Measures/Show.vue",
+		0,
+		19
+	],
+	"./Catalogs/Products/Create": [
+		"./resources/js/pages/Catalogs/Products/Create.vue",
+		12
+	],
+	"./Catalogs/Products/Create.vue": [
+		"./resources/js/pages/Catalogs/Products/Create.vue",
+		12
+	],
+	"./Catalogs/Products/Edit": [
+		"./resources/js/pages/Catalogs/Products/Edit.vue",
+		13
+	],
+	"./Catalogs/Products/Edit.vue": [
+		"./resources/js/pages/Catalogs/Products/Edit.vue",
+		13
+	],
+	"./Catalogs/Products/Index": [
+		"./resources/js/pages/Catalogs/Products/Index.vue",
+		4
+	],
+	"./Catalogs/Products/Index.vue": [
+		"./resources/js/pages/Catalogs/Products/Index.vue",
+		4
+	],
+	"./Catalogs/Products/Show": [
+		"./resources/js/pages/Catalogs/Products/Show.vue",
+		0,
+		20
+	],
+	"./Catalogs/Products/Show.vue": [
+		"./resources/js/pages/Catalogs/Products/Show.vue",
+		0,
+		20
+	],
+	"./Catalogs/Suppliers/Create": [
+		"./resources/js/pages/Catalogs/Suppliers/Create.vue",
+		14
+	],
+	"./Catalogs/Suppliers/Create.vue": [
+		"./resources/js/pages/Catalogs/Suppliers/Create.vue",
+		14
+	],
+	"./Catalogs/Suppliers/Edit": [
+		"./resources/js/pages/Catalogs/Suppliers/Edit.vue",
+		15
+	],
+	"./Catalogs/Suppliers/Edit.vue": [
+		"./resources/js/pages/Catalogs/Suppliers/Edit.vue",
+		15
+	],
+	"./Catalogs/Suppliers/Index": [
+		"./resources/js/pages/Catalogs/Suppliers/Index.vue",
+		5
+	],
+	"./Catalogs/Suppliers/Index.vue": [
+		"./resources/js/pages/Catalogs/Suppliers/Index.vue",
+		5
+	],
+	"./Catalogs/Suppliers/Show": [
+		"./resources/js/pages/Catalogs/Suppliers/Show.vue",
+		31
+	],
+	"./Catalogs/Suppliers/Show.vue": [
+		"./resources/js/pages/Catalogs/Suppliers/Show.vue",
+		31
+	],
+	"./Catalogs/Supplies/Create": [
+		"./resources/js/pages/Catalogs/Supplies/Create.vue",
+		16
+	],
+	"./Catalogs/Supplies/Create.vue": [
+		"./resources/js/pages/Catalogs/Supplies/Create.vue",
+		16
+	],
+	"./Catalogs/Supplies/Edit": [
+		"./resources/js/pages/Catalogs/Supplies/Edit.vue",
+		17
+	],
+	"./Catalogs/Supplies/Edit.vue": [
+		"./resources/js/pages/Catalogs/Supplies/Edit.vue",
+		17
+	],
+	"./Catalogs/Supplies/Index": [
+		"./resources/js/pages/Catalogs/Supplies/Index.vue",
+		6
+	],
+	"./Catalogs/Supplies/Index.vue": [
+		"./resources/js/pages/Catalogs/Supplies/Index.vue",
+		6
+	],
+	"./Catalogs/Supplies/Show": [
+		"./resources/js/pages/Catalogs/Supplies/Show.vue",
+		0,
+		22
+	],
+	"./Catalogs/Supplies/Show.vue": [
+		"./resources/js/pages/Catalogs/Supplies/Show.vue",
+		0,
+		22
+	],
+	"./Home": [
+		"./resources/js/pages/Home.vue",
+		0,
+		30,
+		7
+	],
+	"./Home.vue": [
+		"./resources/js/pages/Home.vue",
+		0,
+		30,
+		7
+	],
+	"./Index": [
+		"./resources/js/pages/Index.vue",
+		26
+	],
+	"./Index.vue": [
+		"./resources/js/pages/Index.vue",
+		26
+	],
+	"./Inventory/Index": [
+		"./resources/js/pages/Inventory/Index.vue",
+		1,
+		25
+	],
+	"./Inventory/Index.vue": [
+		"./resources/js/pages/Inventory/Index.vue",
+		1,
+		25
+	]
+};
+function webpackAsyncContext(req) {
+	if(!__webpack_require__.o(map, req)) {
+		return Promise.resolve().then(function() {
+			var e = new Error("Cannot find module '" + req + "'");
+			e.code = 'MODULE_NOT_FOUND';
+			throw e;
+		});
+	}
+
+	var ids = map[req], id = ids[0];
+	return Promise.all(ids.slice(1).map(__webpack_require__.e)).then(function() {
+		return __webpack_require__(id);
+	});
+}
+webpackAsyncContext.keys = function webpackAsyncContextKeys() {
+	return Object.keys(map);
+};
+webpackAsyncContext.id = "./resources/js/pages lazy recursive ^\\.\\/.*$";
+module.exports = webpackAsyncContext;
 
 /***/ }),
 

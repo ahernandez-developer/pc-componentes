@@ -24,40 +24,50 @@
                   <v-toolbar-title>Proveedores</v-toolbar-title>
 
                   <v-spacer></v-spacer>
-                  <inertia-link href="/admin/catalogs/suppliers/create">
-                    <v-btn color="primary" dark class="mb-2"> Agregar </v-btn>
-                  </inertia-link>
+
+                  <v-btn :href="$route('catalogs')" color="secondary" dark class="m-2">
+                    Regresar a cat&aacute;logos
+                    <v-icon right>mdi-keyboard-return</v-icon>
+                  </v-btn>
+                  <v-btn
+                    :href="$route('catalogs.suppliers.create')"
+                    color="primary"
+                    class="m-2"
+                  >
+                    Agregar
+                    <v-icon right>mdi-plus</v-icon>
+                  </v-btn>
                 </v-toolbar>
                 <v-dialog v-model="dialogtoggle" max-width="500px">
-                  <v-card
-                    color="tertiary"
-                    min-height="200px"
-                    class="d-flex flex-column"
-                  >
-                    <v-card-title class="primary--text mx-auto">
+                  <v-card color="secondary" min-height="200px" class="d-flex flex-column">
+                    <v-card-title>
                       <v-row align="center">
-                        ¿Seguro que deseas
-                        {{
-                          selectedSupplier.is_active ? "desactivar" : "activar"
-                        }}
-                        al proveedor {{ selectedSupplier.name }}?
+                        <p class="white--text px-3">
+                          ¿Seguro que deseas
+                          {{ selectedSupplier.is_active ? "desactivar" : "activar" }}
+                          al proveedor
+                          <span class="primary--text">
+                            {{ selectedSupplier.name }}
+                          </span>
+                          ?
+                        </p>
                       </v-row></v-card-title
                     >
                     <v-spacer></v-spacer>
                     <v-card-actions>
                       <v-spacer></v-spacer>
                       <v-btn
-                        color="info"
-                        class="primary--text text-capitalize"
+                        color="primary"
+                        class="white--text text-uppercase"
                         @click="closetoggle"
                         >Cancelar</v-btn
                       >
                       <v-spacer></v-spacer>
                       <v-btn
-                        color="accent"
-                        class="primary--text text-capitalize"
+                        color="success"
+                        class="white--text text-uppercase"
                         @click="toggleItemConfirm"
-                        >Aceptar</v-btn
+                        >Confirmar</v-btn
                       >
                       <v-spacer></v-spacer>
                     </v-card-actions>
@@ -66,10 +76,12 @@
                 </v-dialog>
               </template>
               <template v-slot:[`item.actions`]="{ item }">
-                <v-icon md @click="show(item.id)"> mdi-eye </v-icon>
-                <v-icon md @click="edit(item.id)" class="mx-2">
-                  mdi-pencil
-                </v-icon>
+                <a :href="$route('catalogs.suppliers.show', item.id)">
+                  <v-icon md class="mx-2"> mdi-eye </v-icon>
+                </a>
+                <a :href="$route('catalogs.suppliers.edit', item.id)">
+                  <v-icon md class="mx-2"> mdi-pencil </v-icon>
+                </a>
                 <v-icon md @click="toggleItem(item)">
                   {{ item.is_active ? "mdi-delete" : "mdi-undo-variant" }}
                 </v-icon>
@@ -145,21 +157,12 @@ export default {
     },
     toggleItemConfirm() {
       this.snackbarText = this.selectedSupplier.name;
-      this.snackbarSubText = this.selectedSupplier.is_active
-        ? "desactivado"
-        : "activado";
-      dispatch(
-        {
-          controller: "suppliers",
-          action: "status",
-          params: this.selectedSupplier.id,
-        },
-        () => {
-          this.snackbar = true;
-          this.fetch();
-          this.closetoggle();
-        }
+      this.snackbarSubText = this.selectedSupplier.is_active ? "desactivado" : "activado";
+      this.$inertia.delete(
+        this.$route("catalogs.suppliers.destroy", this.selectedSupplier.id),
+        this.selectedSupplier.id
       );
+      this.closetoggle();
     },
     closetoggle() {
       this.dialogtoggle = false;
@@ -182,7 +185,7 @@ export default {
 };
 </script>
 
-<style >
+<style>
 a:link {
   text-decoration: none;
 }

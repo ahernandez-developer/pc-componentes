@@ -5,25 +5,22 @@
       <v-row>
         <v-col cols="12" sm="12">
           <v-card outlined light class="mt-7 pa-5">
-            <v-card-title>
-              Agregar proveedor
-            </v-card-title>
-            <v-form v-model="status" lazy-validation ref="form" >
+            <v-card-title> Agregar proveedor </v-card-title>
+            <v-form v-model="status" ref="form">
               <v-row class="my-5">
                 <v-col cols="12" md="6">
+                  <div v-if="errors.name" class="red--text">{{ errors.name }}</div>
                   <v-text-field
                     outlined
                     label="Nombre"
                     v-model="supplier.name"
                     :rules="nameRules"
-                  />
+                    :messages="errors.name"
+                  >
+                  </v-text-field>
                 </v-col>
                 <v-col cols="12" md="6">
-                  <v-text-field
-                    outlined
-                    label="Dirección"
-                    v-model="supplier.address"
-                  />
+                  <v-text-field outlined label="Dirección" v-model="supplier.address" />
                 </v-col>
               </v-row>
               <v-row class="my-5">
@@ -44,19 +41,34 @@
                   />
                 </v-col>
               </v-row>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn
-                  class="ma-3 text-capitalize"
-                  color="primary"
-                  depressed
-                  @click="validate"
-                  :disabled="!status"
-                >
-                  Confirmar
-                  <v-icon dark right> mdi-check </v-icon>
-                </v-btn>
-              </v-card-actions>
+
+              <v-card-text>
+                <v-row>
+                  <v-spacer></v-spacer>
+
+                  <v-btn
+                    class="m-2"
+                    color="secondary"
+                    :href="$route('catalogs.suppliers.index')"
+                    :block="$vuetify.breakpoint.xs"
+                  >
+                    Regresar
+                    <v-icon dark right> mdi-keyboard-return</v-icon>
+                  </v-btn>
+
+                  <v-btn
+                    class="m-2"
+                    color="primary"
+                    depressed
+                    @click="validate"
+                    :disabled="!status"
+                    :block="$vuetify.breakpoint.xs"
+                  >
+                    Confirmar
+                    <v-icon dark right> mdi-check </v-icon>
+                  </v-btn>
+                </v-row>
+              </v-card-text>
             </v-form>
           </v-card>
         </v-col>
@@ -73,6 +85,9 @@ export default {
   components: {
     AppBar,
   },
+  props: {
+    errors: Object,
+  },
   data: () => ({
     status: false,
     supplier: {
@@ -84,13 +99,11 @@ export default {
     },
     nameRules: [
       (v) => !!v || "Ingrese el nombre",
-      (v) =>
-        !v || v.length >= 3 || "El nombre debe contener almenos dos caracteres",
+      (v) => !v || v.length >= 3 || "El nombre debe contener almenos dos caracteres",
     ],
     responsableRules: [
       (v) => !!v || "Es importante identificar un contacto",
-      (v) =>
-        !v || v.length >= 3 || "El nombre debe contener almenos dos caracteres",
+      (v) => !v || v.length >= 3 || "El nombre debe contener almenos dos caracteres",
     ],
     phoneRules: [
       (v) => !!v || "Ingrese un número de teléfono para contactar al proveedor",
@@ -103,12 +116,8 @@ export default {
       if (valid == true) this.storeSupplier();
     },
     storeSupplier() {
-      this.$inertia.post('/admin/catalogs/suppliers', this.supplier); 
-      
+      this.$inertia.post(route("catalogs.suppliers.store"), this.supplier);
     },
   },
 };
 </script>
-
-<style>
-</style>

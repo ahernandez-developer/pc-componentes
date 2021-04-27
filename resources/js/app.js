@@ -9,10 +9,12 @@ Vue.config.productionTip = false;
 Vue.use(plugin);
 Vue.use(PortalVue);
 Vue.use(VueMeta);
+Vue.prototype.$route = route;
 
 InertiaProgress.init();
 
 const el = document.getElementById("app");
+
 
 new Vue({
     vuetify: Vuetify,
@@ -24,7 +26,7 @@ new Vue({
             props: {
                 initialPage: JSON.parse(el.dataset.page),
                 resolveComponent: name =>
-                    import(`@/Pages/${name}`).then(module => module.default)
+                    import(`@/pages/${name}`).then(module => module.default)
             }
         })
 }).$mount(el);

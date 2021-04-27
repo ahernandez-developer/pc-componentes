@@ -17,14 +17,13 @@ Auth::routes();
 Route::get('/', "PublicController@index");
 Route::get('/about', "HomeController@about");
 
-Route::group(['middleware' => 'auth'],function() {  
-
+Route::group(['middleware' => 'auth'], function () {
 });
 Route::get('/admin', "AdminController@index");
 Route::get('/admin/inventory', "InventoryController@index");
-Route::get('/admin/catalogs', "CatalogController@index");
-Route::resource('/admin/catalogs/suppliers', "Catalogs\SuppliersController");
-Route::resource('/admin/catalogs/measures', "Catalogs\MeasuresController");
-Route::resource('/admin/catalogs/supplies', "Catalogs\SuppliesController");
-Route::resource('/admin/catalogs/products', "Catalogs\ProductsController");
+Route::get('/admin/catalogs', "CatalogController@index")->name('catalogs');
+Route::resource('/admin/catalogs/suppliers', "Catalogs\SuppliersController", ['as' => 'catalogs']);
+Route::resource('/admin/catalogs/measures', "Catalogs\MeasuresController", ['as' => 'catalogs']);
+Route::resource('/admin/catalogs/supplies', "Catalogs\SuppliesController", ['as' => 'catalogs']);
+Route::resource('/admin/catalogs/products', "Catalogs\ProductsController", ['as' => 'catalogs']);
 Route::get('/home', 'HomeController@index')->name('home');

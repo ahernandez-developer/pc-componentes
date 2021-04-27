@@ -19,7 +19,7 @@ class CreateSuppliersTable extends Migration
             $table->string('address');
             $table->string('responsable');
             $table->string('phone_number');
-            $table->boolean('is_active');
+            $table->boolean('is_active')->default(1);
             $table->timestamps();
         });
     }

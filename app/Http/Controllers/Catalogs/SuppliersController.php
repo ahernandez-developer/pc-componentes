@@ -22,16 +22,59 @@ class SuppliersController extends Controller
         return Inertia::render('Catalogs/Suppliers/Create');
     }
 
-    public function store(Request $request){
-        
-        $supplier = new Supplier();
-        $supplier->name = $request->name;        
-        $supplier->address = $request->address;        
-        $supplier->responsable = $request->responsable;
-        $supplier->phone_number = $request->phone_number;
-        
-        $supplier->is_active = true;
+    public function store(Request $request)
+    {
+        Supplier::create(
+            $request->validate(
+                [
+                    'name' => ['required', 'max:50'],
+                    'address' => ['required', 'max:50'],
+                    'responsable' => ['required', 'max:50'],
+                    'phone_number' => ['required', 'max:50'],
+                ]
+            )
+        );
+
+        return Redirect::route('catalogs.suppliers.index');
+    }
+
+    public function show($id)
+    {
+        $supplier = Supplier::find($id);
+
+        return Inertia::render('Catalogs/Suppliers/Show', ['supplier' => $supplier]);
+    }
+
+    public function edit($id)
+    {
+        $supplier = Supplier::find($id);
+
+        return Inertia::render('Catalogs/Suppliers/Edit', ['supplier' => $supplier]);
+    }
+
+    public function update(Request $request)
+    {
+        Supplier::where('is_active', 1)
+            ->where('id', $request->id)
+            ->update($request->validate(
+                [
+                    'id' => ['required'],
+                    'name' => ['required', 'min:1', 'max:50'],
+                    'address' => ['required',  'max:50'],
+                    'responsable' => ['required', 'min:1', 'max:50'],
+                    'phone_number' => ['required', 'min:1', 'max:50'],
+                ]
+            ));
+
+        return Redirect::route('catalogs.suppliers.index');
+    }
+
+    public function destroy($id)
+    {
+        $supplier = Supplier::find($id);
+        $supplier->is_active = !$supplier->is_active;
         $supplier->save();
-        return redirect('admin/catalogs/suppliers');
+
+        return Redirect::route('catalogs.suppliers.index');
     }
 }
