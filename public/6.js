@@ -152,19 +152,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "Suppliers",
+  name: "Supplies",
   components: {
     AppBar: _components_AppBar__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  props: ["suppliers"],
-  created: function created() {
-    this.fetch();
-  },
+  props: ["supplies"],
   data: function data() {
     return {
-      selectedSupplier: {},
+      selectedSupplie: {},
       dialog: false,
       dialogtoggle: false,
       snackbar: false,
@@ -179,14 +188,8 @@ __webpack_require__.r(__webpack_exports__);
         text: "Nombre",
         value: "name"
       }, {
-        text: "Responsable",
-        value: "responsable"
-      }, {
-        text: "Teléfono",
-        value: "phone_number"
-      }, {
-        text: "Dirección",
-        value: "address"
+        text: "Medida",
+        value: "id_measure"
       }, {
         text: "Estado",
         value: "is_active"
@@ -200,47 +203,19 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {},
   methods: {
-    fetch: function fetch() {},
     toggleItem: function toggleItem(item) {
-      this.selectedSupplier = Object.assign({}, item);
+      this.selectedSupplie = Object.assign({}, item);
       this.dialogtoggle = true;
     },
     toggleItemConfirm: function toggleItemConfirm() {
-      var _this = this;
-
-      this.snackbarText = this.selectedSupplier.name;
-      this.snackbarSubText = this.selectedSupplier.is_active ? "desactivado" : "activado";
-      dispatch({
-        controller: "suppliers",
-        action: "status",
-        params: this.selectedSupplier.id
-      }, function () {
-        _this.snackbar = true;
-
-        _this.fetch();
-
-        _this.closetoggle();
-      });
+      this.snackbarText = this.selectedSupplie.name;
+      this.snackbarSubText = this.selectedSupplie.is_active ? "desactivado" : "activado";
+      this.$inertia["delete"](this.$route("catalogs.supplies.destroy", this.selectedSupplie.id), this.selectedSupplie.id);
+      this.closetoggle();
     },
     closetoggle: function closetoggle() {
       this.dialogtoggle = false;
-      this.selectedSupplier = {};
-    },
-    show: function show(id) {
-      router.push({
-        name: "CatalogsSuppliersShow",
-        params: {
-          id: id
-        }
-      });
-    },
-    edit: function edit(id) {
-      router.push({
-        name: "CatalogsSuppliersEdit",
-        params: {
-          id: id
-        }
-      });
+      this.selectedSupplie = {};
     }
   }
 });
@@ -434,7 +409,7 @@ var render = function() {
                         staticClass: "elevation-0 primary--text",
                         attrs: {
                           headers: _vm.headers,
-                          items: _vm.suppliers,
+                          items: _vm.supplies,
                           light: ""
                         },
                         scopedSlots: _vm._u(
@@ -470,30 +445,53 @@ var render = function() {
                                     { attrs: { flat: "" } },
                                     [
                                       _c("v-toolbar-title", [
-                                        _vm._v("Proveedores")
+                                        _vm._v("Insumos")
                                       ]),
                                       _vm._v(" "),
                                       _c("v-spacer"),
                                       _vm._v(" "),
                                       _c(
-                                        "inertia-link",
+                                        "v-btn",
                                         {
+                                          staticClass: "m-2",
                                           attrs: {
-                                            href:
-                                              "/admin/catalogs/suppliers/create"
+                                            href: _vm.$route("catalogs"),
+                                            color: "secondary",
+                                            dark: ""
                                           }
                                         },
                                         [
+                                          _vm._v(
+                                            "\n                  Regresar a catálogos\n                  "
+                                          ),
                                           _c(
-                                            "v-btn",
-                                            {
-                                              staticClass: "mb-2",
-                                              attrs: {
-                                                color: "primary",
-                                                dark: ""
-                                              }
-                                            },
-                                            [_vm._v(" Agregar ")]
+                                            "v-icon",
+                                            { attrs: { right: "" } },
+                                            [_vm._v("mdi-keyboard-return")]
+                                          )
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-btn",
+                                        {
+                                          staticClass: "m-2",
+                                          attrs: {
+                                            href: _vm.$route(
+                                              "catalogs.supplies.create"
+                                            ),
+                                            color: "primary"
+                                          }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                  Agregar\n                  "
+                                          ),
+                                          _c(
+                                            "v-icon",
+                                            { attrs: { right: "" } },
+                                            [_vm._v("mdi-plus")]
                                           )
                                         ],
                                         1
@@ -520,36 +518,57 @@ var render = function() {
                                         {
                                           staticClass: "d-flex flex-column",
                                           attrs: {
-                                            color: "tertiary",
+                                            color: "secondary",
                                             "min-height": "200px"
                                           }
                                         },
                                         [
                                           _c(
                                             "v-card-title",
-                                            {
-                                              staticClass:
-                                                "primary--text mx-auto"
-                                            },
                                             [
                                               _c(
                                                 "v-row",
                                                 { attrs: { align: "center" } },
                                                 [
-                                                  _vm._v(
-                                                    "\n                      ¿Seguro que deseas\n                      " +
-                                                      _vm._s(
-                                                        _vm.selectedSupplier
-                                                          .is_active
-                                                          ? "desactivar"
-                                                          : "activar"
-                                                      ) +
-                                                      "\n                      al proveedor " +
-                                                      _vm._s(
-                                                        _vm.selectedSupplier
-                                                          .name
-                                                      ) +
-                                                      "?\n                    "
+                                                  _c(
+                                                    "p",
+                                                    {
+                                                      staticClass:
+                                                        "white--text px-3"
+                                                    },
+                                                    [
+                                                      _vm._v(
+                                                        "\n                        ¿Seguro que deseas\n                        " +
+                                                          _vm._s(
+                                                            _vm.selectedSupplie
+                                                              .is_active
+                                                              ? "desactivar"
+                                                              : "activar"
+                                                          ) +
+                                                          "\n                        el insumo\n                        "
+                                                      ),
+                                                      _c(
+                                                        "span",
+                                                        {
+                                                          staticClass:
+                                                            "primary--text"
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "\n                          " +
+                                                              _vm._s(
+                                                                _vm
+                                                                  .selectedSupplie
+                                                                  .name
+                                                              ) +
+                                                              "\n                        "
+                                                          )
+                                                        ]
+                                                      ),
+                                                      _vm._v(
+                                                        "\n                        ?\n                      "
+                                                      )
+                                                    ]
                                                   )
                                                 ]
                                               )
@@ -568,8 +587,8 @@ var render = function() {
                                                 "v-btn",
                                                 {
                                                   staticClass:
-                                                    "primary--text text-capitalize",
-                                                  attrs: { color: "info" },
+                                                    "white--text text-uppercase",
+                                                  attrs: { color: "primary" },
                                                   on: { click: _vm.closetoggle }
                                                 },
                                                 [_vm._v("Cancelar")]
@@ -581,13 +600,13 @@ var render = function() {
                                                 "v-btn",
                                                 {
                                                   staticClass:
-                                                    "primary--text text-capitalize",
-                                                  attrs: { color: "accent" },
+                                                    "white--text text-uppercase",
+                                                  attrs: { color: "success" },
                                                   on: {
                                                     click: _vm.toggleItemConfirm
                                                   }
                                                 },
-                                                [_vm._v("Aceptar")]
+                                                [_vm._v("Confirmar")]
                                               ),
                                               _vm._v(" "),
                                               _c("v-spacer")
@@ -612,34 +631,49 @@ var render = function() {
                                 var item = ref.item
                                 return [
                                   _c(
-                                    "v-icon",
+                                    "a",
                                     {
-                                      attrs: { md: "" },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.show(item.id)
-                                        }
-                                      }
-                                    },
-                                    [_vm._v(" mdi-eye ")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-icon",
-                                    {
-                                      staticClass: "mx-2",
-                                      attrs: { md: "" },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.edit(item.id)
-                                        }
+                                      attrs: {
+                                        href: _vm.$route(
+                                          "catalogs.supplies.show",
+                                          item.id
+                                        )
                                       }
                                     },
                                     [
-                                      _vm._v(
-                                        "\n                mdi-pencil\n              "
+                                      _c(
+                                        "v-icon",
+                                        {
+                                          staticClass: "mx-2",
+                                          attrs: { md: "" }
+                                        },
+                                        [_vm._v(" mdi-eye ")]
                                       )
-                                    ]
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "a",
+                                    {
+                                      attrs: {
+                                        href: _vm.$route(
+                                          "catalogs.supplies.edit",
+                                          item.id
+                                        )
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "v-icon",
+                                        {
+                                          staticClass: "mx-2",
+                                          attrs: { md: "" }
+                                        },
+                                        [_vm._v(" mdi-pencil ")]
+                                      )
+                                    ],
+                                    1
                                   ),
                                   _vm._v(" "),
                                   _c(
@@ -674,12 +708,12 @@ var render = function() {
                                   _c(
                                     "v-btn",
                                     {
-                                      staticClass: "text-capitalize",
+                                      staticClass: "text-uppercase",
                                       attrs: { color: "primary" }
                                     },
                                     [
                                       _vm._v(
-                                        "\n                Agregar un nuevo proveedor\n              "
+                                        "\n                Agregar un nuevo insumo\n              "
                                       )
                                     ]
                                   )
@@ -744,7 +778,7 @@ var render = function() {
               _vm._v(
                 "\n      Se ha " +
                   _vm._s(_vm.snackbarSubText) +
-                  " con exito el proveedor " +
+                  " con exito el insumo " +
                   _vm._s(_vm.snackbarText) +
                   "\n      "
               )

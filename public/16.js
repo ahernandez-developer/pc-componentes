@@ -116,22 +116,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "SuppliersCreate",
+  name: "SuppliesCreate",
   components: {
     AppBar: _components_AppBar__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  props: {
+    errors: Object
   },
   data: function data() {
     return {
       status: false,
-      supplier: {
+      supplie: {
         name: "",
         address: "",
         responsable: "",
@@ -142,26 +139,16 @@ __webpack_require__.r(__webpack_exports__);
         return !!v || "Ingrese el nombre";
       }, function (v) {
         return !v || v.length >= 3 || "El nombre debe contener almenos dos caracteres";
-      }],
-      responsableRules: [function (v) {
-        return !!v || "Es importante identificar un contacto";
-      }, function (v) {
-        return !v || v.length >= 3 || "El nombre debe contener almenos dos caracteres";
-      }],
-      phoneRules: [function (v) {
-        return !!v || "Ingrese un número de teléfono para contactar al proveedor";
-      }, function (v) {
-        return !v || v.length >= 3 || "Ingrese un número de teléfono valido";
       }]
     };
   },
   methods: {
     validate: function validate(event) {
       var valid = this.$refs.form.validate();
-      if (valid == true) this.storeSupplier();
+      if (valid == true) this.storeSupplie();
     },
-    storeSupplier: function storeSupplier() {
-      this.$inertia.post('/admin/catalogs/suppliers', this.supplier);
+    storeSupplie: function storeSupplie() {
+      this.$inertia.post(route("catalogs.supplies.store"), this.supplie);
     }
   }
 });
@@ -304,15 +291,12 @@ var render = function() {
                       attrs: { outlined: "", light: "" }
                     },
                     [
-                      _c("v-card-title", [
-                        _vm._v("\n            Agregar proveedor\n          ")
-                      ]),
+                      _c("v-card-title", [_vm._v(" Agregar insumo ")]),
                       _vm._v(" "),
                       _c(
                         "v-form",
                         {
                           ref: "form",
-                          attrs: { "lazy-validation": "" },
                           model: {
                             value: _vm.status,
                             callback: function($$v) {
@@ -330,18 +314,25 @@ var render = function() {
                                 "v-col",
                                 { attrs: { cols: "12", md: "6" } },
                                 [
+                                  _vm.errors.name
+                                    ? _c("div", { staticClass: "red--text" }, [
+                                        _vm._v(_vm._s(_vm.errors.name))
+                                      ])
+                                    : _vm._e(),
+                                  _vm._v(" "),
                                   _c("v-text-field", {
                                     attrs: {
                                       outlined: "",
                                       label: "Nombre",
-                                      rules: _vm.nameRules
+                                      rules: _vm.nameRules,
+                                      messages: _vm.errors.name
                                     },
                                     model: {
-                                      value: _vm.supplier.name,
+                                      value: _vm.supplie.name,
                                       callback: function($$v) {
-                                        _vm.$set(_vm.supplier, "name", $$v)
+                                        _vm.$set(_vm.supplie, "name", $$v)
                                       },
-                                      expression: "supplier.name"
+                                      expression: "supplie.name"
                                     }
                                   })
                                 ],
@@ -353,13 +344,13 @@ var render = function() {
                                 { attrs: { cols: "12", md: "6" } },
                                 [
                                   _c("v-text-field", {
-                                    attrs: { outlined: "", label: "Dirección" },
+                                    attrs: { outlined: "", label: "Medida" },
                                     model: {
-                                      value: _vm.supplier.address,
+                                      value: _vm.supplie.id_measure,
                                       callback: function($$v) {
-                                        _vm.$set(_vm.supplier, "address", $$v)
+                                        _vm.$set(_vm.supplie, "id_measure", $$v)
                                       },
-                                      expression: "supplier.address"
+                                      expression: "supplie.id_measure"
                                     }
                                   })
                                 ],
@@ -370,88 +361,61 @@ var render = function() {
                           ),
                           _vm._v(" "),
                           _c(
-                            "v-row",
-                            { staticClass: "my-5" },
+                            "v-card-text",
                             [
                               _c(
-                                "v-col",
-                                { attrs: { cols: "12", md: "6" } },
+                                "v-row",
                                 [
-                                  _c("v-text-field", {
-                                    attrs: {
-                                      outlined: "",
-                                      label: "Responsable",
-                                      rules: _vm.responsableRules
-                                    },
-                                    model: {
-                                      value: _vm.supplier.responsable,
-                                      callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.supplier,
-                                          "responsable",
-                                          $$v
-                                        )
-                                      },
-                                      expression: "supplier.responsable"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-col",
-                                { attrs: { cols: "12", md: "6" } },
-                                [
-                                  _c("v-text-field", {
-                                    attrs: {
-                                      outlined: "",
-                                      label: "Teléfono",
-                                      rules: _vm.phoneRules
-                                    },
-                                    model: {
-                                      value: _vm.supplier.phone_number,
-                                      callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.supplier,
-                                          "phone_number",
-                                          $$v
-                                        )
-                                      },
-                                      expression: "supplier.phone_number"
-                                    }
-                                  })
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-card-actions",
-                            [
-                              _c("v-spacer"),
-                              _vm._v(" "),
-                              _c(
-                                "v-btn",
-                                {
-                                  staticClass: "ma-3 text-capitalize",
-                                  attrs: {
-                                    color: "primary",
-                                    depressed: "",
-                                    disabled: !_vm.status
-                                  },
-                                  on: { click: _vm.validate }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                Confirmar\n                "
-                                  ),
+                                  _c("v-spacer"),
+                                  _vm._v(" "),
                                   _c(
-                                    "v-icon",
-                                    { attrs: { dark: "", right: "" } },
-                                    [_vm._v(" mdi-check ")]
+                                    "v-btn",
+                                    {
+                                      staticClass: "m-2",
+                                      attrs: {
+                                        color: "secondary",
+                                        href: _vm.$route(
+                                          "catalogs.supplies.index"
+                                        ),
+                                        block: _vm.$vuetify.breakpoint.xs
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                  Regresar\n                  "
+                                      ),
+                                      _c(
+                                        "v-icon",
+                                        { attrs: { dark: "", right: "" } },
+                                        [_vm._v(" mdi-keyboard-return")]
+                                      )
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      staticClass: "m-2",
+                                      attrs: {
+                                        color: "primary",
+                                        depressed: "",
+                                        disabled: !_vm.status,
+                                        block: _vm.$vuetify.breakpoint.xs
+                                      },
+                                      on: { click: _vm.validate }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                  Confirmar\n                  "
+                                      ),
+                                      _c(
+                                        "v-icon",
+                                        { attrs: { dark: "", right: "" } },
+                                        [_vm._v(" mdi-check ")]
+                                      )
+                                    ],
+                                    1
                                   )
                                 ],
                                 1
@@ -771,7 +735,7 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VApp: vuetify_lib_components_VApp__WEBPACK_IMPORTED_MODULE_4__["VApp"],VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCard"],VCardActions: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCardActions"],VCardTitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCardTitle"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VCol"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VContainer"],VForm: vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_8__["VForm"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_9__["VIcon"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VRow"],VSpacer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VSpacer"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_10__["VTextField"]})
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VApp: vuetify_lib_components_VApp__WEBPACK_IMPORTED_MODULE_4__["VApp"],VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCard"],VCardText: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCardText"],VCardTitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCardTitle"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VCol"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VContainer"],VForm: vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_8__["VForm"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_9__["VIcon"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VRow"],VSpacer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VSpacer"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_10__["VTextField"]})
 
 
 /* hot reload */

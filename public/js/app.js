@@ -61763,13 +61763,11 @@ var map = {
 	],
 	"./Catalogs/Supplies/Show": [
 		"./resources/js/pages/Catalogs/Supplies/Show.vue",
-		0,
-		22
+		21
 	],
 	"./Catalogs/Supplies/Show.vue": [
 		"./resources/js/pages/Catalogs/Supplies/Show.vue",
-		0,
-		22
+		21
 	],
 	"./Home": [
 		"./resources/js/pages/Home.vue",

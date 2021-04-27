@@ -7,7 +7,7 @@
           <v-card outlined>
             <v-data-table
               :headers="headers"
-              :items="suppliers"
+              :items="supplies"
               class="elevation-0 primary--text"
               light
             >
@@ -21,43 +21,53 @@
               </template>
               <template v-slot:top>
                 <v-toolbar flat>
-                  <v-toolbar-title>Proveedores</v-toolbar-title>
+                  <v-toolbar-title>Insumos</v-toolbar-title>
 
                   <v-spacer></v-spacer>
-                  <inertia-link href="/admin/catalogs/suppliers/create">
-                    <v-btn color="primary" dark class="mb-2"> Agregar </v-btn>
-                  </inertia-link>
+
+                  <v-btn :href="$route('catalogs')" color="secondary" dark class="m-2">
+                    Regresar a cat&aacute;logos
+                    <v-icon right>mdi-keyboard-return</v-icon>
+                  </v-btn>
+                  <v-btn
+                    :href="$route('catalogs.supplies.create')"
+                    color="primary"
+                    class="m-2"
+                  >
+                    Agregar
+                    <v-icon right>mdi-plus</v-icon>
+                  </v-btn>
                 </v-toolbar>
                 <v-dialog v-model="dialogtoggle" max-width="500px">
-                  <v-card
-                    color="tertiary"
-                    min-height="200px"
-                    class="d-flex flex-column"
-                  >
-                    <v-card-title class="primary--text mx-auto">
+                  <v-card color="secondary" min-height="200px" class="d-flex flex-column">
+                    <v-card-title>
                       <v-row align="center">
-                        ¿Seguro que deseas
-                        {{
-                          selectedSupplier.is_active ? "desactivar" : "activar"
-                        }}
-                        al proveedor {{ selectedSupplier.name }}?
+                        <p class="white--text px-3">
+                          ¿Seguro que deseas
+                          {{ selectedSupplie.is_active ? "desactivar" : "activar" }}
+                          el insumo
+                          <span class="primary--text">
+                            {{ selectedSupplie.name }}
+                          </span>
+                          ?
+                        </p>
                       </v-row></v-card-title
                     >
                     <v-spacer></v-spacer>
                     <v-card-actions>
                       <v-spacer></v-spacer>
                       <v-btn
-                        color="info"
-                        class="primary--text text-capitalize"
+                        color="primary"
+                        class="white--text text-uppercase"
                         @click="closetoggle"
                         >Cancelar</v-btn
                       >
                       <v-spacer></v-spacer>
                       <v-btn
-                        color="accent"
-                        class="primary--text text-capitalize"
+                        color="success"
+                        class="white--text text-uppercase"
                         @click="toggleItemConfirm"
-                        >Aceptar</v-btn
+                        >Confirmar</v-btn
                       >
                       <v-spacer></v-spacer>
                     </v-card-actions>
@@ -66,17 +76,19 @@
                 </v-dialog>
               </template>
               <template v-slot:[`item.actions`]="{ item }">
-                <v-icon md @click="show(item.id)"> mdi-eye </v-icon>
-                <v-icon md @click="edit(item.id)" class="mx-2">
-                  mdi-pencil
-                </v-icon>
+                <a :href="$route('catalogs.supplies.show', item.id)">
+                  <v-icon md class="mx-2"> mdi-eye </v-icon>
+                </a>
+                <a :href="$route('catalogs.supplies.edit', item.id)">
+                  <v-icon md class="mx-2"> mdi-pencil </v-icon>
+                </a>
                 <v-icon md @click="toggleItem(item)">
                   {{ item.is_active ? "mdi-delete" : "mdi-undo-variant" }}
                 </v-icon>
               </template>
               <template v-slot:no-data>
-                <v-btn color="primary" class="text-capitalize">
-                  Agregar un nuevo proveedor
+                <v-btn color="primary" class="text-uppercase">
+                  Agregar un nuevo insumo
                 </v-btn>
               </template>
             </v-data-table>
@@ -84,7 +96,7 @@
         </v-col>
       </v-row>
       <v-snackbar v-model="snackbar">
-        Se ha {{ snackbarSubText }} con exito el proveedor {{ snackbarText }}
+        Se ha {{ snackbarSubText }} con exito el insumo {{ snackbarText }}
         <template v-slot:action="{ attrs }">
           <v-btn color="pink" text v-bind="attrs" @click="snackbar = false">
             Cerrar
@@ -99,17 +111,15 @@
 import AppBar from "@/components/AppBar";
 
 export default {
-  name: "Suppliers",
+  name: "Supplies",
   components: {
     AppBar,
   },
-  props: ["suppliers"],
-  created() {
-    this.fetch();
-  },
+  props: ["supplies"],
+
   data() {
     return {
-      selectedSupplier: {},
+      selectedSupplie: {},
       dialog: false,
       dialogtoggle: false,
       snackbar: false,
@@ -123,9 +133,7 @@ export default {
           value: "id",
         },
         { text: "Nombre", value: "name" },
-        { text: "Responsable", value: "responsable" },
-        { text: "Teléfono", value: "phone_number" },
-        { text: "Dirección", value: "address" },
+        { text: "Medida", value: "id_measure" },
         { text: "Estado", value: "is_active" },
         {
           text: "Acciones",
@@ -138,51 +146,29 @@ export default {
   },
   computed: {},
   methods: {
-    fetch() {},
     toggleItem(item) {
-      this.selectedSupplier = Object.assign({}, item);
+      this.selectedSupplie = Object.assign({}, item);
       this.dialogtoggle = true;
     },
     toggleItemConfirm() {
-      this.snackbarText = this.selectedSupplier.name;
-      this.snackbarSubText = this.selectedSupplier.is_active
-        ? "desactivado"
-        : "activado";
-      dispatch(
-        {
-          controller: "suppliers",
-          action: "status",
-          params: this.selectedSupplier.id,
-        },
-        () => {
-          this.snackbar = true;
-          this.fetch();
-          this.closetoggle();
-        }
+      this.snackbarText = this.selectedSupplie.name;
+      this.snackbarSubText = this.selectedSupplie.is_active ? "desactivado" : "activado";
+      this.$inertia.delete(
+        this.$route("catalogs.supplies.destroy", this.selectedSupplie.id),
+        this.selectedSupplie.id
       );
+      this.closetoggle();
     },
     closetoggle() {
       this.dialogtoggle = false;
 
-      this.selectedSupplier = {};
-    },
-    show(id) {
-      router.push({
-        name: "CatalogsSuppliersShow",
-        params: { id: id },
-      });
-    },
-    edit(id) {
-      router.push({
-        name: "CatalogsSuppliersEdit",
-        params: { id: id },
-      });
+      this.selectedSupplie = {};
     },
   },
 };
 </script>
 
-<style >
+<style>
 a:link {
   text-decoration: none;
 }

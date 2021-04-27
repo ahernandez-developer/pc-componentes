@@ -17,7 +17,7 @@ class CreateSuppliesTable extends Migration
             $table->id();
             $table->string('name');
             $table->integer('id_measure');
-            $table->boolean('is_active');
+            $table->boolean('is_active')->default(1);
             $table->timestamps();
         });
     }

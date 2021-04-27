@@ -87,7 +87,7 @@
                 </v-icon>
               </template>
               <template v-slot:no-data>
-                <v-btn color="primary" class="text-capitalize">
+                <v-btn color="primary" class="text-uppercase">
                   Agregar un nuevo proveedor
                 </v-btn>
               </template>
@@ -116,9 +116,7 @@ export default {
     AppBar,
   },
   props: ["suppliers"],
-  created() {
-    this.fetch();
-  },
+
   data() {
     return {
       selectedSupplier: {},
@@ -168,18 +166,6 @@ export default {
       this.dialogtoggle = false;
 
       this.selectedSupplier = {};
-    },
-    show(id) {
-      router.push({
-        name: "CatalogsSuppliersShow",
-        params: { id: id },
-      });
-    },
-    edit(id) {
-      router.push({
-        name: "CatalogsSuppliersEdit",
-        params: { id: id },
-      });
     },
   },
 };

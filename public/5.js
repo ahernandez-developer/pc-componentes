@@ -171,9 +171,6 @@ __webpack_require__.r(__webpack_exports__);
     AppBar: _components_AppBar__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   props: ["suppliers"],
-  created: function created() {
-    this.fetch();
-  },
   data: function data() {
     return {
       selectedSupplier: {},
@@ -226,22 +223,6 @@ __webpack_require__.r(__webpack_exports__);
     closetoggle: function closetoggle() {
       this.dialogtoggle = false;
       this.selectedSupplier = {};
-    },
-    show: function show(id) {
-      router.push({
-        name: "CatalogsSuppliersShow",
-        params: {
-          id: id
-        }
-      });
-    },
-    edit: function edit(id) {
-      router.push({
-        name: "CatalogsSuppliersEdit",
-        params: {
-          id: id
-        }
-      });
     }
   }
 });
@@ -734,7 +715,7 @@ var render = function() {
                                   _c(
                                     "v-btn",
                                     {
-                                      staticClass: "text-capitalize",
+                                      staticClass: "text-uppercase",
                                       attrs: { color: "primary" }
                                     },
                                     [
