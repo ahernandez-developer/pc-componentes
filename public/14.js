@@ -133,7 +133,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SuppliersCreate",
@@ -352,8 +351,7 @@ var render = function() {
                                     attrs: {
                                       outlined: "",
                                       label: "Nombre",
-                                      rules: _vm.nameRules,
-                                      messages: _vm.errors.name
+                                      rules: _vm.nameRules
                                     },
                                     model: {
                                       value: _vm.supplier.name,

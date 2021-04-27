@@ -116,6 +116,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SuppliesCreate",
@@ -130,9 +132,7 @@ __webpack_require__.r(__webpack_exports__);
       status: false,
       supplie: {
         name: "",
-        address: "",
-        responsable: "",
-        phone_number: "",
+        id_measure: "",
         is_active: 1
       },
       nameRules: [function (v) {
@@ -324,8 +324,7 @@ var render = function() {
                                     attrs: {
                                       outlined: "",
                                       label: "Nombre",
-                                      rules: _vm.nameRules,
-                                      messages: _vm.errors.name
+                                      rules: _vm.nameRules
                                     },
                                     model: {
                                       value: _vm.supplie.name,
@@ -343,6 +342,16 @@ var render = function() {
                                 "v-col",
                                 { attrs: { cols: "12", md: "6" } },
                                 [
+                                  _vm.errors.id_measure
+                                    ? _c("div", { staticClass: "red--text" }, [
+                                        _vm._v(
+                                          "\n                  " +
+                                            _vm._s(_vm.errors.id_measure) +
+                                            "\n                "
+                                        )
+                                      ])
+                                    : _vm._e(),
+                                  _vm._v(" "),
                                   _c("v-text-field", {
                                     attrs: { outlined: "", label: "Medida" },
                                     model: {

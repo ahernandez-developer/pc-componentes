@@ -15,11 +15,13 @@
                     label="Nombre"
                     v-model="supplie.name"
                     :rules="nameRules"
-                    :messages="errors.name"
                   >
                   </v-text-field>
                 </v-col>
                 <v-col cols="12" md="6">
+                  <div v-if="errors.id_measure" class="red--text">
+                    {{ errors.id_measure }}
+                  </div>
                   <v-text-field outlined label="Medida" v-model="supplie.id_measure" />
                 </v-col>
               </v-row>
@@ -74,9 +76,7 @@ export default {
     status: false,
     supplie: {
       name: "",
-      address: "",
-      responsable: "",
-      phone_number: "",
+      id_measure: "",
       is_active: 1,
     },
     nameRules: [

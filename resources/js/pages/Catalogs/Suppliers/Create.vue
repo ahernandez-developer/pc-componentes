@@ -15,7 +15,6 @@
                     label="Nombre"
                     v-model="supplier.name"
                     :rules="nameRules"
-                    :messages="errors.name"
                   >
                   </v-text-field>
                 </v-col>

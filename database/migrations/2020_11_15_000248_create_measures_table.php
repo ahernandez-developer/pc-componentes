@@ -16,7 +16,7 @@ class CreateMeasuresTable extends Migration
         Schema::create('measures', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->boolean('is_active');
+            $table->boolean('is_active')->default(1);
             $table->timestamps();
         });
     }

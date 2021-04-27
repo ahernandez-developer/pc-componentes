@@ -87,22 +87,19 @@
                 </v-icon>
               </template>
               <template v-slot:no-data>
-                <v-btn color="primary" class="text-uppercase">
+                <v-btn
+                  :href="$route('catalogs.suppliers.create')"
+                  color="primary"
+                  class="text-uppercase"
+                >
                   Agregar un nuevo proveedor
+                  <v-icon right>mdi-plus</v-icon>
                 </v-btn>
               </template>
             </v-data-table>
           </v-card>
         </v-col>
       </v-row>
-      <v-snackbar v-model="snackbar">
-        Se ha {{ snackbarSubText }} con exito el proveedor {{ snackbarText }}
-        <template v-slot:action="{ attrs }">
-          <v-btn color="pink" text v-bind="attrs" @click="snackbar = false">
-            Cerrar
-          </v-btn>
-        </template>
-      </v-snackbar>
     </v-container>
   </v-app>
 </template>
@@ -122,7 +119,7 @@ export default {
       selectedSupplier: {},
       dialog: false,
       dialogtoggle: false,
-      snackbar: false,
+
       snackbarText: "",
       snackbarSubText: "",
       headers: [
