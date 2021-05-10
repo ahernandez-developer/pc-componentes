@@ -4,34 +4,50 @@ namespace App\Http\Controllers\Catalogs;
 
 use Inertia\Inertia;
 use App\Http\Controllers\Controller;
-use App\Models\Supplier;
+use App\Models\Category;
+use App\Models\Product;
+use App\Models\ProductDetail;
+use App\Models\Supply;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 
 class ProductsController extends Controller
 {
     public function index()
     {
-        $suppliers = Supplier::all();
-        return Inertia::render('Catalogs/Suppliers/Index')->with(compact('suppliers'));
+        $products = Product::all();
+
+        return Inertia::render('Catalogs/Products/Index')->with(compact('products'));
     }
 
 
     public function create()
     {
-        return Inertia::render('Catalogs/Suppliers/Create');
+        $categories = Category::where('is_active', 1)->get();
+        $supplies = Supply::with('measure')->where('is_active', 1)->get();
+
+        return Inertia::render('Catalogs/Products/Create')->with(compact('categories', 'supplies'));
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
+        $product = new Product();
+        $product->name = $request->name;
+        $product->price = $request->price;
+        $product->available = $request->available;
+        $product->id_category = $request->id_category;
+        $product->is_active = true;
+        $product->save();
         
-        $supplier = new Supplier();
-        $supplier->name = $request->name;        
-        $supplier->address = $request->address;        
-        $supplier->responsable = $request->responsable;
-        $supplier->phone_number = $request->phone_number;
-        
-        $supplier->is_active = true;
-        $supplier->save();
-        return redirect('admin/catalogs/suppliers');
+        foreach($request->components as $product_component)
+        {
+         
+            $component = new ProductDetail();
+            $component->id_product = $product['id'];
+            $component->id_supply = $product_component['supply']['id'];
+            $component->quantity = $product_component['quantity'];
+            $component->is_active= 1;
+            $component->save();
+        }
+        return redirect('admin/catalogs/products');
     }
 }

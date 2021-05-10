@@ -4,7 +4,7 @@
       <app-bar />
       <v-row class="pt-15">
         <v-col cols="12" md="12">
-          <v-card outlined>
+          <v-card flat>
             <v-data-table
               :headers="headers"
               :items="measures"

@@ -27,10 +27,7 @@ class CategoriesController extends Controller
             $request->validate(
                 [
                     'title' => ['required', 'max:50'],
-                    'description' => ['required', 'max:50'],
-                    'local_image_url' => ['required', 'max:50'],
-                    'web_image_url' => ['required', 'max:50'],
-                    'firestore_reference' => ['required', 'max:50'],
+                    'description' => ['required', 'max:50']                    
                 ]
             )
         );

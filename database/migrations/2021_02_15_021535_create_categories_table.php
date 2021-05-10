@@ -17,9 +17,7 @@ class CreateCategoriesTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('description');
-            $table->string('local_image_url');
-            $table->string('web_image_url');
-            $table->string('firestore_reference');
+            $table->string('image_url')->nullable();
             $table->boolean('is_active')->default(1);
             $table->timestamps();
         });

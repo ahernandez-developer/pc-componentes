@@ -27,13 +27,13 @@ class SuppliersController extends Controller
             $request->validate(
                 [
                     'name' => ['required', 'max:50'],
-                    'address' => ['required', 'max:50'],
+                    'address' => ['max:50'],
                     'responsable' => ['required', 'max:50'],
-                    'phone_number' => ['required', 'max:50'],
+                    'phone_number' => ['max:50'],
                 ]
             )
         );
-
+        
         return Redirect::route('catalogs.suppliers.index');
     }
 

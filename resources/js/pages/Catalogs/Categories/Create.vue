@@ -4,12 +4,14 @@
       <app-bar />
       <v-row>
         <v-col cols="12" sm="12">
-          <v-card outlined light class="mt-7 pa-5">
+          <v-card flat light class="mt-7 pa-5">
             <v-card-title> Agregar categor&iacute;a </v-card-title>
             <v-form v-model="status" ref="form">
               <v-row class="my-5">
                 <v-col cols="12" md="6">
-                  <div v-if="errors.title" class="red--text">{{ errors.title }}</div>
+                  <div v-if="errors.title" class="red--text">
+                    {{ errors.title }}
+                  </div>
                   <v-text-field
                     outlined
                     label="Nombre"
@@ -28,42 +30,7 @@
                     v-model="category.description"
                   />
                 </v-col>
-              </v-row>
-              <v-row class="my-5">
-                <v-col cols="12" md="6">
-                  <div v-if="errors.local_image_url" class="red--text">
-                    {{ errors.local_image_url }}
-                  </div>
-                  <v-text-field
-                    outlined
-                    label="Url imagen local"
-                    v-model="category.local_image_url"
-                    :rules="urlRules"
-                  />
-                </v-col>
-                <v-col cols="12" md="6">
-                  <div v-if="errors.web_image_url" class="red--text">
-                    {{ errors.web_image_url }}
-                  </div>
-                  <v-text-field
-                    outlined
-                    label="Url imagen web"
-                    v-model="category.web_image_url"
-                    :rules="urlRules"
-                  />
-                </v-col>
-                <v-col cols="12" md="6">
-                  <div v-if="errors.firestore_reference" class="red--text">
-                    {{ errors.firestore_reference }}
-                  </div>
-                  <v-text-field
-                    outlined
-                    label="Firestore"
-                    v-model="category.firestore_reference"
-                  />
-                </v-col>
-              </v-row>
-
+              </v-row>            
               <v-card-text>
                 <v-row>
                   <v-spacer></v-spacer>
@@ -83,7 +50,6 @@
                     color="primary"
                     depressed
                     @click="validate"
-                    :disabled="!status"
                     :block="$vuetify.breakpoint.xs"
                   >
                     Confirmar
@@ -121,11 +87,13 @@ export default {
     },
     titleRules: [
       (v) => !!v || "Ingrese el nombre",
-      (v) => !v || v.length >= 3 || "El nombre debe contener almenos dos caracteres",
+      (v) =>
+        !v || v.length >= 3 || "El nombre debe contener almenos dos caracteres",
     ],
     urlRules: [
       (v) => !!v || "Es importante identificar un contacto",
-      (v) => !v || v.length >= 3 || "El nombre debe contener almenos dos caracteres",
+      (v) =>
+        !v || v.length >= 3 || "El nombre debe contener almenos dos caracteres",
     ],
   }),
   methods: {

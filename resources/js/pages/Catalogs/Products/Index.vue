@@ -4,10 +4,10 @@
       <app-bar />
       <v-row class="pt-15">
         <v-col cols="12" md="12">
-          <v-card outlined>
+          <v-card flat>
             <v-data-table
               :headers="headers"
-              :items="suppliers"
+              :items="products"
               class="elevation-0 primary--text"
               light
             >
@@ -21,11 +21,15 @@
               </template>
               <template v-slot:top>
                 <v-toolbar flat>
-                  <v-toolbar-title>Proveedores</v-toolbar-title>
+                  <v-toolbar-title>Productos</v-toolbar-title>
 
                   <v-spacer></v-spacer>
-                  <inertia-link href="/admin/catalogs/suppliers/create">
-                    <v-btn color="primary" dark class="mb-2"> Agregar </v-btn>
+                   <v-btn :href="$route('catalogs')" color="secondary" dark class="m-2">
+                    Regresar a cat&aacute;logos
+                    <v-icon right>mdi-keyboard-return</v-icon>
+                  </v-btn>
+                  <inertia-link href="/admin/catalogs/products/create">
+                    <v-btn color="primary" dark class="ma-2"> Agregar </v-btn>
                   </inertia-link>
                 </v-toolbar>
                 <v-dialog v-model="dialogtoggle" max-width="500px">
@@ -38,9 +42,9 @@
                       <v-row align="center">
                         ¿Seguro que deseas
                         {{
-                          selectedSupplier.is_active ? "desactivar" : "activar"
+                          selectedProduct.is_active ? "desactivar" : "activar"
                         }}
-                        al proveedor {{ selectedSupplier.name }}?
+                        al producto {{ selectedProduct.name }}?
                       </v-row></v-card-title
                     >
                     <v-spacer></v-spacer>
@@ -76,7 +80,7 @@
               </template>
               <template v-slot:no-data>
                 <v-btn color="primary" class="text-capitalize">
-                  Agregar un nuevo proveedor
+                  Agregar un nuevo producto
                 </v-btn>
               </template>
             </v-data-table>
@@ -84,7 +88,7 @@
         </v-col>
       </v-row>
       <v-snackbar v-model="snackbar">
-        Se ha {{ snackbarSubText }} con exito el proveedor {{ snackbarText }}
+        Se ha {{ snackbarSubText }} con exito el producto {{ snackbarText }}
         <template v-slot:action="{ attrs }">
           <v-btn color="pink" text v-bind="attrs" @click="snackbar = false">
             Cerrar
@@ -99,17 +103,17 @@
 import AppBar from "@/components/AppBar";
 
 export default {
-  name: "Suppliers",
+  name: "Products",
   components: {
     AppBar,
   },
-  props: ["suppliers"],
+  props: ["products"],
   created() {
     this.fetch();
   },
   data() {
     return {
-      selectedSupplier: {},
+      selectedProduct: {},
       dialog: false,
       dialogtoggle: false,
       snackbar: false,
@@ -140,19 +144,19 @@ export default {
   methods: {
     fetch() {},
     toggleItem(item) {
-      this.selectedSupplier = Object.assign({}, item);
+      this.selectedProduct = Object.assign({}, item);
       this.dialogtoggle = true;
     },
     toggleItemConfirm() {
-      this.snackbarText = this.selectedSupplier.name;
-      this.snackbarSubText = this.selectedSupplier.is_active
+      this.snackbarText = this.selectedProduct.name;
+      this.snackbarSubText = this.selectedProduct.is_active
         ? "desactivado"
         : "activado";
       dispatch(
         {
-          controller: "suppliers",
+          controller: "products",
           action: "status",
-          params: this.selectedSupplier.id,
+          params: this.selectedProduct.id,
         },
         () => {
           this.snackbar = true;
@@ -164,17 +168,17 @@ export default {
     closetoggle() {
       this.dialogtoggle = false;
 
-      this.selectedSupplier = {};
+      this.selectedProduct = {};
     },
     show(id) {
       router.push({
-        name: "CatalogsSuppliersShow",
+        name: "CatalogsProductsShow",
         params: { id: id },
       });
     },
     edit(id) {
       router.push({
-        name: "CatalogsSuppliersEdit",
+        name: "CatalogsProductsEdit",
         params: { id: id },
       });
     },

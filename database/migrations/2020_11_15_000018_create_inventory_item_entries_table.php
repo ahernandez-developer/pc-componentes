@@ -18,10 +18,9 @@ class CreateInventoryItemEntriesTable extends Migration
             $table->integer('id_inventory');
             $table->integer('id_supplier');
             $table->float('purchase_price');
-            $table->string('code');          
-            $table->float('quantity');
-            $table->dateTime('expiration_date');      
-            $table->boolean('is_active');
+            $table->string('code')->nullable();          
+            $table->float('quantity')->default(0); 
+            $table->boolean('is_active')->default(1);
             $table->timestamps();
         });
     }

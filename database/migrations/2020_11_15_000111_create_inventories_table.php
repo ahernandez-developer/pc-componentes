@@ -16,9 +16,9 @@ class CreateInventoriesTable extends Migration
         Schema::create('inventories', function (Blueprint $table) {
             $table->id();
             $table->integer('id_supply');
-            $table->float('min');
-            $table->float('max');
-            $table->float('quantity');
+            $table->float('min')->default(0);
+            $table->float('max')->nullable();
+            $table->float('quantity')->default(0);
             $table->boolean('is_active');
             $table->timestamps();
         });

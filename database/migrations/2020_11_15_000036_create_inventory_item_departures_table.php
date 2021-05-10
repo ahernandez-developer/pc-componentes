@@ -20,7 +20,7 @@ class CreateInventoryItemDeparturesTable extends Migration
             $table->integer('id_user');
             $table->float('quantity');
             $table->string('reason');
-            $table->boolean('is_active');
+            $table->boolean('is_active')->default(1);
             $table->timestamps();
         });
     }

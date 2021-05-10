@@ -4,7 +4,7 @@
       <app-bar />
       <v-row>
         <v-col cols="12" sm="12">
-          <v-card outlined light class="mt-7 pa-5">
+          <v-card  flat light class="mt-7 pa-5">
             <v-card-title> Agregar proveedor </v-card-title>
             <v-form v-model="status" ref="form">
               <v-row class="my-5">
@@ -36,7 +36,7 @@
                     outlined
                     label="Teléfono"
                     v-model="supplier.phone_number"
-                    :rules="phoneRules"
+                   
                   />
                 </v-col>
               </v-row>
@@ -60,7 +60,6 @@
                     color="primary"
                     depressed
                     @click="validate"
-                    :disabled="!status"
                     :block="$vuetify.breakpoint.xs"
                   >
                     Confirmar
@@ -88,7 +87,7 @@ export default {
     errors: Object,
   },
   data: () => ({
-    status: false,
+    status: true,
     supplier: {
       name: "",
       address: "",
@@ -103,11 +102,7 @@ export default {
     responsableRules: [
       (v) => !!v || "Es importante identificar un contacto",
       (v) => !v || v.length >= 3 || "El nombre debe contener almenos dos caracteres",
-    ],
-    phoneRules: [
-      (v) => !!v || "Ingrese un número de teléfono para contactar al proveedor",
-      (v) => !v || v.length >= 3 || "Ingrese un número de teléfono valido",
-    ],
+    ]    
   }),
   methods: {
     validate(event) {

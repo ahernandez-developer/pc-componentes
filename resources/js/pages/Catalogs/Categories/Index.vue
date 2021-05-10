@@ -45,7 +45,7 @@
                         <p class="white--text px-3">
                           ¿Seguro que deseas
                           {{ selectedCategory.is_active ? "desactivar" : "activar" }}
-                          la categor&iacutea;
+                          la categoria;
                           <span class="primary--text">
                             {{ selectedCategory.title }}
                           </span>
@@ -131,9 +131,7 @@ export default {
         },
         { text: "Nombre", value: "title" },
         { text: "Descripción", value: "description" },
-        { text: "Imagen local", value: "local_image_url" },
-        { text: "Imagen web", value: "web_image_url" },
-        { text: "Firestore", value: "firestore_reference" },
+        { text: "Imagen", value: "image_url" },
         { text: "Estado", value: "is_active" },
         {
           text: "Acciones",

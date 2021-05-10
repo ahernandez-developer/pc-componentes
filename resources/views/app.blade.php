@@ -7,13 +7,15 @@
   <!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> -->
 
   <!-- Ziggy library, make Laravel routes available in js files -->
-  @routes
-  
+ 
+   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">  
+ 
   <link href="{{ mix('/css/app.css') }}" rel="stylesheet" />
   <script src="{{ mix('/js/app.js') }}" defer></script>
 </head>
 
 <body>
+  @routes
   @inertia
 </body>
 

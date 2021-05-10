@@ -17,9 +17,9 @@ class CreateInventoryItemsTable extends Migration
             $table->id();
             $table->integer('id_inventory');
             $table->integer('id_supplier');
-            $table->float('quantity');
+            $table->float('quantity');            
             
-            $table->boolean('is_active');
+            $table->boolean('is_active')->default(1);
             $table->timestamps();
         });
     }

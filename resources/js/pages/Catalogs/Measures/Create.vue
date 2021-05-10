@@ -4,7 +4,7 @@
       <app-bar />
       <v-row>
         <v-col cols="12" sm="12">
-          <v-card outlined light class="mt-7 pa-5">
+          <v-card flat light class="mt-7 pa-5">
             <v-card-title> Agregar medida </v-card-title>
             <v-form v-model="status" ref="form">
               <v-row class="my-5">
@@ -38,8 +38,7 @@
                     class="m-2"
                     color="primary"
                     depressed
-                    @click="validate"
-                    :disabled="!status"
+                    @click="validate" 
                     :block="$vuetify.breakpoint.xs"
                   >
                     Confirmar
